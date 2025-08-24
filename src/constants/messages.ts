@@ -2,9 +2,23 @@ export const ERROR_MESSAGES = {
   GOOGLE_AUTH_SERVER_ERROR:
     "Server error during Google authentication. Please try again later.",
   USER_EXISTS: "User already exists. Please login with",
+  USER_UNKNOWN_ERROR: "An unexpected error occurred while fetching user info.",
+  USER_UNAUTHORIZED: "Unauthorized request. Please log in again.",
+  TOKEN_INVALID: "Invalid authentication token.",
+  SURVEY_UPDATE_ERROR:
+    "An error occurred while updating survey data. Please try again.",
+
+  //   USER_NOT_FOUND: "User not found.",
+  //   INVALID_USER_ID: "Invalid or malformed user ID.",
+  //   USER_FETCH_FAILED: "Failed to fetch user information.",
+  //   DATABASE_ERROR: "Database error while retrieving user data.",
+  //   TOKEN_EXPIRED: "Authentication token has expired.",
+  //   PERMISSION_DENIED: "You do not have permission to access this user info.",
+  //   NETWORK_ERROR: "Network error occurred while fetching user data.",
 };
 
 export const SUCCESS_MESSAGES = {
   GOOGLE_LOGIN_SUCCESS: "You have successfully logged in with Google!",
   REGISTER_SUCCESS: "You have registered successfully!",
+  SURVEY_COMPLETED_SUCCESS: "Survey completed successfully!",
 };

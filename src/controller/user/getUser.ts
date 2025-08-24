@@ -1,0 +1,55 @@
+import { Request, Response } from "express";
+import { ERROR_MESSAGES } from "../../constants/messages";
+import { verifyToken } from "../../token/jwtToken";
+import { User, userModel } from "../../model/userModel";
+
+const getUserInfo = async (req: Request, res: Response) => {
+  try {
+    // Extract JWT token from HTTP-only cookie
+    const token: string = req.cookies?.EnglishBuddyToken;
+
+    // Verify and decode the JWT token to get user details
+    const userDetails = verifyToken(token) as User;
+
+    // Check if token verification failed or returned null
+    if (!userDetails) {
+      return res.status(401).json({
+        status: false,
+        message: ERROR_MESSAGES.TOKEN_INVALID,
+      });
+    }
+
+    // Find user in database using email from verified token
+    // Exclude sensitive loginWith,password field from response
+    const user = await userModel
+      .findOne({ email: userDetails?.email })
+      .select("-loginWith -password");
+
+    // Handle case where user exists in token but not in database
+    // This could happen if user was deleted after token was issued
+    if (!user) {
+      return res.status(404).json({
+        status: false,
+        message: ERROR_MESSAGES.TOKEN_INVALID,
+      });
+    }
+
+    // Successfully authenticated - return user profile data
+    res.status(200).json({
+      status: true,
+      message: ERROR_MESSAGES.USER_UNKNOWN_ERROR,
+      data: user,
+    });
+  } catch (err) {
+    // Log error for debugging purposes
+    console.log(ERROR_MESSAGES.USER_UNKNOWN_ERROR, err);
+
+    // Return generic server error to client
+    res.status(500).json({
+      status: false,
+      message: ERROR_MESSAGES.USER_UNKNOWN_ERROR,
+    });
+  }
+};
+
+export default getUserInfo;
