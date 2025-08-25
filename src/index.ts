@@ -2,14 +2,14 @@ import cors from "cors";
 import { config } from "dotenv";
 import cookieParser from "cookie-parser";
 import express, { Request, Response, Application } from "express";
-
+import compression from "compression";
 import { GoogleGenAI } from "@google/genai";
 import connectDb from "./db/connectDb";
 import web from "./router/web";
 
 config();
 
-const startServer = () => {
+const startServer = async () => {
   try {
     const app: Application = express();
 
@@ -105,15 +105,17 @@ const startServer = () => {
       res.json({ status: "ok" });
     });
     app.use(cookieParser());
+    app.use(compression());
     app.use(express.json({ limit: "50mb" }));
-    app.use(express.urlencoded({ extended: true, limit: "50mb" }));
+    app.use(express.urlencoded({ extended: true, limit: "5mb" }));
     app.use(
       cors({
         credentials: true,
         origin: process.env.REQUEST_URL as string,
       })
     );
-    connectDb(process.env.DATABASE_URL as string);
+
+    await connectDb(process.env.DATABASE_URL as string);
     app.use("/", web);
 
     const port: number = parseInt(process.env.PORT || "4000", 10);

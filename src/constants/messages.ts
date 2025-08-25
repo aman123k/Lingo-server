@@ -14,6 +14,9 @@ export const ERROR_MESSAGES = {
     "An error occurred while login to your account. Please try again.",
   USER_NOT_FOUND: "User does't exist. Please register",
   INVALID_PASSWORD: "Invalid password",
+  AUTH_REQUEST_ERROR: "Too many requests from this IP, please try again later.",
+  GITHUB_AUTH_SERVER_ERROR:
+    "Server error during Github authentication. Please try again later.",
 
   //   INVALID_USER_ID: "Invalid or malformed user ID.",
   //   USER_FETCH_FAILED: "Failed to fetch user information.",
@@ -25,6 +28,7 @@ export const ERROR_MESSAGES = {
 
 export const SUCCESS_MESSAGES = {
   GOOGLE_LOGIN_SUCCESS: "You have successfully logged in with Google!",
+  GITHUB_LOGIN_SUCCESS: "You have successfully logged in with Github!",
   REGISTER_SUCCESS: "You have registered successfully!",
   SURVEY_COMPLETED_SUCCESS: "Survey completed successfully!",
   LOGIN_SUCCESS: "You have successfully logged in",
