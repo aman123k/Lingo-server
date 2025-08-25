@@ -117,6 +117,7 @@ const startServer = () => {
     app.use("/", web);
 
     const port: number = parseInt(process.env.PORT || "4000", 10);
+
     const server = app.listen(port, () => {
       console.log(`server is running on  http://localhost:${port}`);
     });

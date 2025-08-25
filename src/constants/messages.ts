@@ -7,8 +7,14 @@ export const ERROR_MESSAGES = {
   TOKEN_INVALID: "Invalid authentication token.",
   SURVEY_UPDATE_ERROR:
     "An error occurred while updating survey data. Please try again.",
+  REGISTRATION_FAILED: "Registration failed. Please try again later.",
+  USER_CREATION_ERROR:
+    "An error occurred while creating your account. Please try again.",
+  USER_LOGIN_ERROR:
+    "An error occurred while login to your account. Please try again.",
+  USER_NOT_FOUND: "User does't exist. Please register",
+  INVALID_PASSWORD: "Invalid password",
 
-  //   USER_NOT_FOUND: "User not found.",
   //   INVALID_USER_ID: "Invalid or malformed user ID.",
   //   USER_FETCH_FAILED: "Failed to fetch user information.",
   //   DATABASE_ERROR: "Database error while retrieving user data.",
@@ -21,4 +27,5 @@ export const SUCCESS_MESSAGES = {
   GOOGLE_LOGIN_SUCCESS: "You have successfully logged in with Google!",
   REGISTER_SUCCESS: "You have registered successfully!",
   SURVEY_COMPLETED_SUCCESS: "Survey completed successfully!",
+  LOGIN_SUCCESS: "You have successfully logged in",
 };

@@ -32,8 +32,10 @@ const googleAuth = async (req: Request, res: Response) => {
     );
     const json = (await response.json()) as GoogleUser;
 
-    // Check if user already exists in our database
-    const user = await userModel.findOne({ email: json?.email });
+    // Find user in database with case-insensitive email matching
+    const user = await userModel.findOne({
+      email: { $regex: json.email, $options: "i" },
+    });
 
     // Handle existing user scenarios
     if (user) {
