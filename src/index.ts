@@ -104,6 +104,7 @@ const startServer = async () => {
       //       console.log(response);
       res.json({ status: "ok" });
     });
+    app.set("trust proxy", 1);
     app.use(cookieParser());
     app.use(compression());
     app.use(express.json({ limit: "50mb" }));
