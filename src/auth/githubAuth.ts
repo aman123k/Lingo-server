@@ -1,5 +1,6 @@
 import { config } from "dotenv";
 import { Request, Response } from "express";
+import fetch from "cross-fetch";
 import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../constants/messages";
 import { createToken } from "../token/jwtToken";
 import setAuthCookie from "../lib/storeCookie";
