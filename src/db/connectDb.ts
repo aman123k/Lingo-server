@@ -7,7 +7,7 @@ const connectDb = async (DATABASE_URL: string) => {
       minPoolSize: 5,
       serverSelectionTimeoutMS: 10000,
       socketTimeoutMS: 45000,
-    });
+    } as any);
     console.log("connection successfully");
   } catch (err) {
     console.log("can't connect db", err);
