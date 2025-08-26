@@ -13,8 +13,8 @@ type GitHubToken = {
 };
 
 type GitHubUserResponse = {
-  name?: string | null;
-  email?: string | null;
+  name: string;
+  email: string;
 };
 
 const GitHubAuth = async (req: Request, res: Response) => {
@@ -60,7 +60,7 @@ const GitHubAuth = async (req: Request, res: Response) => {
 
     // Find user in database with case-insensitive email matching
     const user = await userModel.findOne({
-      email: { $regex: json.email, $options: "i" },
+      email: { $regex: `${json?.email}`, $options: "i" },
     });
 
     // Handle existing user scenarios

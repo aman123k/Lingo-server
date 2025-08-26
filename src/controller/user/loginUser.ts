@@ -9,7 +9,7 @@ const loginUser = async (req: Request, res: Response) => {
   try {
     // Extract email and password from request body
     const { email, password } = req.body;
-    console.log(email, password);
+
     // Find user in database with case-insensitive email matching
     const user = await userModel.findOne({
       email: { $regex: email, $options: "i" },

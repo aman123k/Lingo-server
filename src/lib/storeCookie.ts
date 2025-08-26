@@ -5,12 +5,13 @@ import { Response } from "express";
  * Configures secure cookie settings for production use
  */
 const setAuthCookie = (res: Response, token: string) => {
+  const isProd = process.env.NODE_ENV === "production";
   res.cookie("EnglishBuddyToken", token, {
     httpOnly: true,
-    secure: true,
+    secure: isProd,
     path: "/",
-    expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days expiration
-    sameSite: "none",
+    expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+    sameSite: isProd ? "none" : "lax",
   });
 };
 
