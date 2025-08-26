@@ -18,7 +18,6 @@
     "noImplicitAny": true,
     "pretty": true,
     "typeRoots": ["src/@types", "./node_modules/@types"],
-    "types": ["node", "express"], // ✅ add this line
     "noEmit": false,
     "esModuleInterop": true,
     "module": "commonjs",
