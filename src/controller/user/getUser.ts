@@ -5,21 +5,8 @@ import { User, userModel } from "../../model/userModel";
 
 const getUserInfo = async (req: Request, res: Response) => {
   try {
-    // Extract JWT token from HTTP-only cookie
-    const token: string = req.cookies?.EnglishBuddyToken;
+    const userDetails = req.user as User & { _id: string };
 
-    // Verify and decode the JWT token to get user details
-    const userDetails = verifyToken(token) as User;
-
-    // Check if token verification failed or returned null
-    if (!userDetails) {
-      return res.status(401).json({
-        status: false,
-        message: ERROR_MESSAGES.TOKEN_INVALID,
-      });
-    }
-
-    // Find user in database using email from verified token
     // Exclude sensitive loginWith,password field from response
     const user = await userModel
       .findOne({ email: userDetails?.email })
@@ -30,7 +17,7 @@ const getUserInfo = async (req: Request, res: Response) => {
     if (!user) {
       return res.status(404).json({
         status: false,
-        message: ERROR_MESSAGES.TOKEN_INVALID,
+        message: "",
       });
     }
 

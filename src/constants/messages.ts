@@ -4,7 +4,6 @@ export const ERROR_MESSAGES = {
   USER_EXISTS: "User already exists. Please login with",
   USER_UNKNOWN_ERROR: "An unexpected error occurred while fetching user info.",
   USER_UNAUTHORIZED: "Unauthorized request. Please log in again.",
-  TOKEN_INVALID: "Invalid authentication token.",
   SURVEY_UPDATE_ERROR:
     "An error occurred while updating survey data. Please try again.",
   REGISTRATION_FAILED: "Registration failed. Please try again later.",
@@ -17,6 +16,9 @@ export const ERROR_MESSAGES = {
   AUTH_REQUEST_ERROR: "Too many requests from this IP, please try again later.",
   GITHUB_AUTH_SERVER_ERROR:
     "Server error during Github authentication. Please try again later.",
+
+  UNAUTHORIZED: "Unauthorized: No token provided",
+  INVALID_TOKEN: "Unauthorized: Invalid token",
 
   //   INVALID_USER_ID: "Invalid or malformed user ID.",
   //   USER_FETCH_FAILED: "Failed to fetch user information.",

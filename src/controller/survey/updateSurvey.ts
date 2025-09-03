@@ -6,8 +6,6 @@ import setAuthCookie from "../../lib/storeCookie";
 
 const updateSurvey = async (req: Request, res: Response) => {
   try {
-    // Extract JWT token from HTTP-only cookie
-    const token: string = req.cookies?.EnglishBuddyToken;
     // Extract survey data from request body (for new users or survey completion)
     const {
       ageGroup,
@@ -19,16 +17,15 @@ const updateSurvey = async (req: Request, res: Response) => {
       translationLanguage,
     } = req.body;
 
-    // Verify and decode the JWT token to get user details
-    const userDetails = verifyToken(token) as User & { _id: string };
+    const userDetails = req.user as User & { _id: string };
+
     // Check if token verification failed or returned null
     if (!userDetails) {
       return res.status(401).json({
         status: false,
-        message: ERROR_MESSAGES.TOKEN_INVALID,
+        message: ERROR_MESSAGES.INVALID_TOKEN,
       });
     }
-
     // User exists but hasn't completed survey - update with survey data
     const updatedUser = await userModel.findByIdAndUpdate(
       userDetails._id,
