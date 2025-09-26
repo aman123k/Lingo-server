@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../../constants/messages";
-import { User, userModel } from "../../model/userModel";
+import { userModel } from "../../model/userModel";
 import { createToken } from "../../token/jwtToken";
 import setAuthCookie from "../../lib/storeCookie";
 

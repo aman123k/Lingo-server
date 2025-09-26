@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
-import { ERROR_MESSAGES } from "../../constants/messages";
-import { verifyToken } from "../../token/jwtToken";
+import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../../constants/messages";
 import { User, userModel } from "../../model/userModel";
 
 const getUserInfo = async (req: Request, res: Response) => {
@@ -17,14 +16,14 @@ const getUserInfo = async (req: Request, res: Response) => {
     if (!user) {
       return res.status(404).json({
         status: false,
-        message: "",
+        message: ERROR_MESSAGES.USER_UNKNOWN_ERROR,
       });
     }
 
     // Successfully authenticated - return user profile data
     res.status(200).json({
       status: true,
-      message: ERROR_MESSAGES.USER_UNKNOWN_ERROR,
+      message: SUCCESS_MESSAGES.USER_RETRIEVED,
       data: user,
     });
   } catch (err) {

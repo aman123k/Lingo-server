@@ -34,4 +34,5 @@ export const SUCCESS_MESSAGES = {
   REGISTER_SUCCESS: "You have registered successfully!",
   SURVEY_COMPLETED_SUCCESS: "Survey completed successfully!",
   LOGIN_SUCCESS: "You have successfully logged in",
+  USER_RETRIEVED: "User information retrieved successfully",
 };
