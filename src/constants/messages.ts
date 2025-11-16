@@ -16,16 +16,11 @@ export const ERROR_MESSAGES = {
   AUTH_REQUEST_ERROR: "Too many requests from this IP, please try again later.",
   GITHUB_AUTH_SERVER_ERROR:
     "Server error during Github authentication. Please try again later.",
-
   UNAUTHORIZED: "Unauthorized: No token provided",
   INVALID_TOKEN: "Unauthorized: Invalid token",
-
-  //   INVALID_USER_ID: "Invalid or malformed user ID.",
-  //   USER_FETCH_FAILED: "Failed to fetch user information.",
-  //   DATABASE_ERROR: "Database error while retrieving user data.",
-  //   TOKEN_EXPIRED: "Authentication token has expired.",
-  //   PERMISSION_DENIED: "You do not have permission to access this user info.",
-  //   NETWORK_ERROR: "Network error occurred while fetching user data.",
+  OTP_REQUEST_ERROR: "Too many OTP requests, please try again later.",
+  FAIL_TO_SEND_OTP: "Failed to send OTP. Please try again later.",
+  OTP_EXPIRED: "OTP has expired. Please request a new one.",
 };
 
 export const SUCCESS_MESSAGES = {
@@ -35,4 +30,5 @@ export const SUCCESS_MESSAGES = {
   SURVEY_COMPLETED_SUCCESS: "Survey completed successfully!",
   LOGIN_SUCCESS: "You have successfully logged in",
   USER_RETRIEVED: "User information retrieved successfully",
+  OTP_SENT_TO_MAIL: "OTP sent successfully to your email.",
 };

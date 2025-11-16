@@ -6,7 +6,8 @@ import setAuthCookie from "../../lib/storeCookie";
 
 const updateSurvey = async (req: Request, res: Response) => {
   try {
-    // Extract survey data from request body (for new users or survey completion)
+    // Extract survey responses from request body
+    // These fields capture user preferences and learning profile
     const {
       ageGroup,
       languageLevel,
@@ -17,16 +18,21 @@ const updateSurvey = async (req: Request, res: Response) => {
       translationLanguage,
     } = req.body;
 
+    // Extract authenticated user details from JWT token
     const userDetails = req.user as User & { _id: string };
 
-    // Check if token verification failed or returned null
+    // Validate user authentication
+    // User must be authenticated to update their survey
     if (!userDetails) {
       return res.status(401).json({
         status: false,
         message: ERROR_MESSAGES.INVALID_TOKEN,
       });
     }
-    // User exists but hasn't completed survey - update with survey data
+
+    // Update user document with survey responses in MongoDB
+    // Set isSurveyComplete to true if languageLevel is provided
+    // Return updated document with { new: true } option
     const updatedUser = await userModel.findByIdAndUpdate(
       userDetails._id,
       {
@@ -42,7 +48,8 @@ const updateSurvey = async (req: Request, res: Response) => {
       { new: true }
     );
 
-    // Handle case where user update fails
+    // Validate user update succeeded
+    // If findByIdAndUpdate returns null, user doesn't exist
     if (!updatedUser) {
       return res.status(404).json({
         status: false,
@@ -50,15 +57,21 @@ const updateSurvey = async (req: Request, res: Response) => {
       });
     }
 
-    // Generate JWT token for updated user
+    // Generate new JWT token with updated user information
+    // This ensures subsequent requests have latest user data
     const userToken = createToken(updatedUser.toObject());
+
+    // Set JWT token in HTTP-only cookie for secure client storage
     setAuthCookie(res, userToken);
 
+    // Return success response after survey completion
     return res.status(201).json({
       status: true,
       message: SUCCESS_MESSAGES.SURVEY_COMPLETED_SUCCESS,
     });
   } catch (err) {
+    // Log and return generic server error
+    // Prevents sensitive error details from being exposed to client
     res.status(500).json({
       status: false,
       message: ERROR_MESSAGES.SURVEY_UPDATE_ERROR,

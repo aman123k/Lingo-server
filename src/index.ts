@@ -6,6 +6,7 @@ import compression from "compression";
 import { GoogleGenAI } from "@google/genai";
 import connectDb from "./db/connectDb";
 import web from "./router/web";
+import client from "./redis/redisClient";
 
 config();
 
@@ -104,7 +105,6 @@ const startServer = async () => {
       //       console.log(response);
       res.json({ status: "ok" });
     });
-    app.set("trust proxy", 1);
     app.use(cookieParser());
     app.use(compression());
     app.use(express.json({ limit: "50mb" }));
@@ -118,6 +118,7 @@ const startServer = async () => {
 
     await connectDb(process.env.DATABASE_URL as string);
     app.use("/", web);
+    await client.connect();
 
     const port: number = parseInt(process.env.PORT || "4000", 10);
 
