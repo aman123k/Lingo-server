@@ -8,6 +8,7 @@ import { authLimiter, otpLimiter } from "../middleware/rateLimiter";
 import GitHubAuth from "../auth/githubAuth";
 import verifyTokenMiddleware from "../middleware/verifyToken";
 import sentOtp from "../controller/otp/sentOtp";
+import verifyOtp from "../controller/otp/verifyOtp";
 
 const router: Router = express.Router();
 
@@ -18,6 +19,7 @@ router.post("/api/survey", verifyTokenMiddleware, updateSurvey);
 router.post("/api/register", authLimiter, registerUser);
 router.post("/api/login", authLimiter, loginUser);
 router.post("/api/forgot-password", otpLimiter, sentOtp);
+router.post("/api/verify-otp", verifyOtp);
 
 // GET REQUEST
 router.get("/api/userInformation", verifyTokenMiddleware, getUserInfo);
