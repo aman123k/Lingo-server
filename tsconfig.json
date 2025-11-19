@@ -21,7 +21,7 @@
     "noEmit": false,
     "esModuleInterop": true,
     "module": "commonjs",
-    "moduleResolution": "node",
+    "moduleResolution": "node16",
     "resolveJsonModule": true,
     "incremental": false,
     "rootDir": "src"

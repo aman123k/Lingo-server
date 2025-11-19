@@ -1,9 +1,11 @@
+import { config } from "dotenv";
+config();
 import { Request, Response } from "express";
 import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../../constants/messages";
 import { userModel } from "../../model/userModel";
 import client from "../../redis/redisClient";
-import nodemailer from "nodemailer";
 import { otpEmail } from "./otpTemplate";
+import { Resend } from "resend";
 
 const sentOtp = async (req: Request, res: Response) => {
   try {
@@ -26,33 +28,24 @@ const sentOtp = async (req: Request, res: Response) => {
     // Store OTP in Redis with 5-minute expiration
     await client.set("lingoOtp", otp.toString(), { EX: 300 });
 
-    const mailOPtions = {
-      from: process.env.SENDER_EMAIL,
+    // Send OTP via email using Resend service
+    const resend = new Resend(process.env.RESEND_API_KEY as string);
+
+    // Send the email
+    const { data, error } = await resend.emails.send({
+      from: process.env.SENDER_EMAIL as string,
       to: email,
       subject: "Your OTP for Password Reset",
       html: otpEmail(user, otp),
-    };
-
-    // Configure nodemailer transport using Brevo SMTP
-    const transportResponse = nodemailer.createTransport({
-      host: "smtp-relay.brevo.com",
-      port: 587,
-      auth: {
-        user: process.env.AUTH_EMAIL,
-        pass: process.env.SMTP_KEY,
-      },
     });
-
-    // Send the email with OTP
-    await transportResponse.sendMail(mailOPtions, (error, info) => {
-      if (error) {
-        console.log("Error:", error);
-      } else {
-        console.log("Email sent:", info.response);
-      }
-    });
-
-    // Return success response
+    // Handle any errors during email sending
+    if (error) {
+      return res.status(500).json({
+        status: false,
+        message: ERROR_MESSAGES.FAIL_TO_SEND_OTP,
+      });
+    }
+    // Respond with success message
     res.status(200).json({
       status: true,
       message: SUCCESS_MESSAGES.OTP_SENT_TO_MAIL,
