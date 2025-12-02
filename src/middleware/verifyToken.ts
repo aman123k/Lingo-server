@@ -17,7 +17,7 @@ const verifyTokenMiddleware = (
   next: NextFunction
 ) => {
   // Extract JWT token from HTTP-only cookie
-  const token: string = req.cookies?.EnglishBuddyToken;
+  const token: string = req.cookies?.Lingo;
 
   if (!token) {
     return res.status(401).json({

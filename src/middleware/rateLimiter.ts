@@ -17,3 +17,14 @@ export const otpLimiter = rateLimit({
   message: { status: false, message: ERROR_MESSAGES.OTP_REQUEST_ERROR },
   statusCode: 429,
 });
+// Rate limiter for OTP requests
+export const chatLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour in milliseconds
+  max: 20, // Max requests per hour
+  message: {
+    status: false,
+    message:
+      "We’ve exceeded today’s quota; try again later or upgrade for higher limits.",
+  },
+  statusCode: 429,
+});

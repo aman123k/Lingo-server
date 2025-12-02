@@ -12,12 +12,19 @@ export const otpEmail = (user: { name?: string } | null, otp: string) => {
         border-radius: 10px;
       "
     >
-      <div class="header" style="padding: 30px 38px; text-align: center">
-        <img
-          src="https://via.placeholder.com/250x100?text=Lingo+App+Logo"
-          style="width: 250px"
-          alt="Lingo App Logo"
-        />
+     <div class="header" style="padding: 30px 38px; text-align: center">
+        <img src="https://res.cloudinary.com/dytcbjjlv/image/upload/v1763547739/Logomark_iwujhs.png" style="width: 50px" alt="Lingo App Logo" />
+        <h2
+          style="
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+            color: #1c398e;
+            font-family: 'Nunito', sans-serif;
+          "
+        >
+          Lingo
+        </h2>
       </div>
       <div
         class="content-box"
@@ -45,7 +52,7 @@ export const otpEmail = (user: { name?: string } | null, otp: string) => {
             color: #121a26;
           "
         >
-          Confirm and Update your Lingo password 🔒 !
+          Confirm and Update your password 🔒 !
         </h2>
         <p
           style="
@@ -62,7 +69,7 @@ export const otpEmail = (user: { name?: string } | null, otp: string) => {
             margin-bottom: 15px;
           "
         >
-          Hey , ${user?.name ?? ""}
+          Hey,${user?.name ?? ""}
         </p>
         <p
           style="
@@ -108,9 +115,7 @@ export const otpEmail = (user: { name?: string } | null, otp: string) => {
               margin-top: 1rem;
               color: #4caf50;
             "
-          >
-            ${otp}</span
-          >
+          >${otp}</span>
         </p>
 
         <p
