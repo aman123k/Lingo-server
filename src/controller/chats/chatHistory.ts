@@ -10,7 +10,7 @@ const chatHistory = async (req: Request, res: Response) => {
     const userDetails = req.user as User & { _id: string };
 
     // Pagination Logic
-    const limit = 10;
+    const limit = 20;
     // 2. Convert the string ID into a MongoDB ObjectId
     const userIdObjectId = new mongoose.Types.ObjectId(userDetails._id);
 
@@ -22,7 +22,7 @@ const chatHistory = async (req: Request, res: Response) => {
     const total = await conversationModel.countDocuments(queryFilter);
 
     const page = parseInt(req.query.page as string) || 1;
-    const skip = total - page * limit < 0 ? 0 : total - page * limit;
+    const skip = (page - 1) * limit;
 
     // Retrieve paginated messages
     const messages = await conversationModel
@@ -34,7 +34,7 @@ const chatHistory = async (req: Request, res: Response) => {
           { conversationMode: "chat" },
         ],
       })
-      .sort({ timestamp: -1 }) // important → oldest first
+      .sort({ timestamp: -1 })
       .skip(skip)
       .limit(limit);
 
@@ -45,7 +45,7 @@ const chatHistory = async (req: Request, res: Response) => {
         role: "model",
         conversationMode: "chat",
         content:
-          "Hey! I'm Jennifer, your personal AI language teacher. Ask me anything 🙂",
+          "Hey! I'm Jennifer, your personal AI language teacher. Ask me anything ?🙂",
       });
 
       // Save the initial message to the database
@@ -59,7 +59,7 @@ const chatHistory = async (req: Request, res: Response) => {
       return res.status(200).json({
         status: true,
         message: "Chat history retrieved successfully.",
-        data: messages,
+        data: messages.reverse(),
         total,
       });
     }

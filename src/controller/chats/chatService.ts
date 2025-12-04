@@ -52,27 +52,28 @@ const chatService = async (req: Request, res: Response) => {
       });
     }
 
-    const dbMessages = await conversationModel.insertMany([
-      {
-        role: "user",
-        conversationMode: "chat",
-        content: incomingUserMessage.content,
-        timestamp: new Date(),
-        userId: new mongoose.Types.ObjectId(userDetails._id),
-      },
-      {
-        role: "model",
-        conversationMode: "chat",
-        content: terseReply,
-        timestamp: new Date(),
-        userId: new mongoose.Types.ObjectId(userDetails._id),
-      },
-    ]);
+    // Save user message
+    const userMsg = await conversationModel.create({
+      role: "user",
+      conversationMode: "chat",
+      content: incomingUserMessage.content,
+      timestamp: new Date(),
+      userId: userDetails._id,
+    });
+
+    // Save model message
+    const modelMsg = await conversationModel.create({
+      role: "model",
+      conversationMode: "chat",
+      content: terseReply,
+      timestamp: new Date(),
+      userId: userDetails._id,
+    });
 
     res.status(200).json({
       status: true,
       message: "Chat response generated successfully",
-      reply: terseReply,
+      reply: modelMsg,
     });
   } catch (err) {
     console.log(err);

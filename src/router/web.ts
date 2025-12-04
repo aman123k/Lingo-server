@@ -15,6 +15,7 @@ import sentOtp from "../controller/otp/sentOtp";
 import verifyOtp from "../controller/otp/verifyOtp";
 import chatHistory from "../controller/chats/chatHistory";
 import chatService from "../controller/chats/chatService";
+import translateLanguage from "../controller/translate/translateLanguage";
 
 const router: Router = express.Router();
 
@@ -31,6 +32,12 @@ router.post(
   verifyTokenMiddleware,
   chatLimiter,
   chatService
+);
+router.post(
+  "/api/translate",
+  verifyTokenMiddleware,
+  chatLimiter,
+  translateLanguage
 );
 
 // GET REQUEST
