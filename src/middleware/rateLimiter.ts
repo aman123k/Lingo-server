@@ -20,7 +20,7 @@ export const otpLimiter = rateLimit({
 // Rate limiter for OTP requests
 export const chatLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour in milliseconds
-  max: 20, // Max requests per hour
+  max: 6, // Max requests per hour
   message: {
     status: false,
     message:
