@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../../constants/messages";
-import { createToken, verifyToken } from "../../token/jwtToken";
+import { createToken } from "../../token/jwtToken";
 import { User, userModel } from "../../model/userModel";
 import setAuthCookie from "../../lib/storeCookie";
+import client from "../../redis/redisClient";
 
 const updateSurvey = async (req: Request, res: Response) => {
   try {
@@ -63,6 +64,11 @@ const updateSurvey = async (req: Request, res: Response) => {
 
     // Set JWT token in HTTP-only cookie for secure client storage
     setAuthCookie(res, userToken);
+
+    // Cache user data in Redis with 24-hour expiration (86400 seconds)
+    await client.set(userDetails?._id, JSON.stringify(updatedUser), {
+      EX: 86400,
+    });
 
     // Return success response after survey completion
     return res.status(201).json({

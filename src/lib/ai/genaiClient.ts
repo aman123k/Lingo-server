@@ -62,7 +62,7 @@ export const generateFromContents = async (
   };
 
   const response = await genaiClient.models.generateContentStream({
-    model: "gemini-2.5-pro",
+    model: "gemini-2.5-flash",
     config: coonfig,
     contents: contents,
   });
