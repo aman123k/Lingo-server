@@ -21,6 +21,11 @@ export const ERROR_MESSAGES = {
   OTP_REQUEST_ERROR: "Too many OTP requests, please try again later.",
   FAIL_TO_SEND_OTP: "Failed to send OTP. Please try again later.",
   OTP_EXPIRED: "OTP has expired. Please request a new one.",
+  INTERNAL_SERVER_ERROR: "Internal Server Error",
+  CHAT_HISTORY_ERROR: "An error occurred while getting your chats",
+  CHAT_RESPONSE_ERROR: "An error occurred while generating your response",
+  LOGOUT_ERROR: "Failed to logout user",
+  DELETE_USER_ERROR: "Failed to delete user",
 };
 
 export const SUCCESS_MESSAGES = {
@@ -31,4 +36,9 @@ export const SUCCESS_MESSAGES = {
   LOGIN_SUCCESS: "You have successfully logged in",
   USER_RETRIEVED: "User information retrieved successfully",
   OTP_SENT_TO_MAIL: "OTP sent successfully to your email.",
+  INITIALBOTMESSAGE: "Chat history initialized with a welcome message.",
+  OLDER_MESSAGE: "Chat history retrieved successfully.",
+  CHAT_RESPONSE: "Chat response generated successfully",
+  LOGGED_OUT: "Logged out. See you soon!",
+  DELETE_USER: "Account deleted. We're sorry to see you go.",
 };

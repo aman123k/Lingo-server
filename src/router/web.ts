@@ -16,6 +16,8 @@ import verifyOtp from "../controller/otp/verifyOtp";
 import chatHistory from "../controller/chats/chatHistory";
 import chatService from "../controller/chats/chatService";
 import translateLanguage from "../controller/translate/translateLanguage";
+import logoutUser from "../controller/user/logoutUser";
+import deleteUser from "../controller/user/deleteUser";
 
 const router: Router = express.Router();
 
@@ -39,9 +41,13 @@ router.post(
   chatLimiter,
   translateLanguage
 );
+router.post("/api/logoutUser", verifyTokenMiddleware, logoutUser);
 
 // GET REQUEST
 router.get("/api/userInformation", verifyTokenMiddleware, getUserInfo);
 router.get("/api/chatHistory", verifyTokenMiddleware, chatHistory);
+
+// DELETE REQUEST
+router.delete("/api/deleteUser", verifyTokenMiddleware, deleteUser);
 
 export default router;

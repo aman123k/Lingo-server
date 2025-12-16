@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { User } from "../../model/userModel";
-import { getLastConversations } from "../../lib/ai/genaiClient";
 import { conversationModel } from "../../model/conversationModel";
 import mongoose from "mongoose";
+import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../../constants/messages";
 
 const chatHistory = async (req: Request, res: Response) => {
   try {
@@ -52,21 +52,22 @@ const chatHistory = async (req: Request, res: Response) => {
       await initialBotMessage.save();
       return res.status(200).json({
         status: true,
-        message: "Chat history initialized with a welcome message.",
+        message: SUCCESS_MESSAGES?.INITIALBOTMESSAGE,
         data: [initialBotMessage],
       });
     } else {
       return res.status(200).json({
         status: true,
-        message: "Chat history retrieved successfully.",
+        message: SUCCESS_MESSAGES?.OLDER_MESSAGE,
         data: messages.reverse(),
         total,
       });
     }
   } catch (error) {
+    console.log(ERROR_MESSAGES?.CHAT_HISTORY_ERROR, error);
     res.status(500).json({
       status: false,
-      message: "Internal Server Error",
+      message: ERROR_MESSAGES?.INTERNAL_SERVER_ERROR,
     });
   }
 };

@@ -13,4 +13,18 @@ const setAuthCookie = (res: Response, token: string) => {
   });
 };
 
+/**
+ * delete authentication cookie
+ */
+
+export const clearAuthCookie = (res: Response) => {
+  res.cookie("Lingo", "", {
+    httpOnly: true,
+    secure: true,
+    path: "/",
+    sameSite: "none",
+    maxAge: 0, // 👈 immediately delete
+  });
+};
+
 export default setAuthCookie;

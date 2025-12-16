@@ -9,6 +9,7 @@ import {
 } from "../../lib/ai/genaiClient";
 import { userInformationPrompt } from "../../lib/prompts/generatePrompt";
 import { conversationModel } from "../../model/conversationModel";
+import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../../constants/messages";
 
 const chatService = async (req: Request, res: Response) => {
   try {
@@ -72,14 +73,14 @@ const chatService = async (req: Request, res: Response) => {
 
     res.status(200).json({
       status: true,
-      message: "Chat response generated successfully",
+      message: SUCCESS_MESSAGES?.CHAT_RESPONSE,
       reply: modelMsg,
     });
   } catch (err) {
-    console.log(err);
+    console.log(ERROR_MESSAGES?.CHAT_RESPONSE_ERROR, err);
     res.status(500).json({
       status: false,
-      message: "Internal Server Error",
+      message: ERROR_MESSAGES?.INTERNAL_SERVER_ERROR,
     });
   }
 };

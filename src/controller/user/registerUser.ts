@@ -60,6 +60,7 @@ const registerUser = async (req: Request, res: Response) => {
       route: "/",
     });
   } catch (err) {
+    // Log error for debugging and monitoring
     console.log(ERROR_MESSAGES.USER_CREATION_ERROR, err);
 
     // Return generic server error to client
