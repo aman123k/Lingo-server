@@ -26,6 +26,7 @@ export const ERROR_MESSAGES = {
   CHAT_RESPONSE_ERROR: "An error occurred while generating your response",
   LOGOUT_ERROR: "Failed to logout user",
   DELETE_USER_ERROR: "Failed to delete user",
+  UPDATE_USER_ERROR: "Failed to delete user",
 };
 
 export const SUCCESS_MESSAGES = {
@@ -41,4 +42,5 @@ export const SUCCESS_MESSAGES = {
   CHAT_RESPONSE: "Chat response generated successfully",
   LOGGED_OUT: "Logged out. See you soon!",
   DELETE_USER: "Account deleted. We're sorry to see you go.",
+  PROFILE_UPDATE: "User profile updated successfully.",
 };

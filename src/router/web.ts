@@ -18,6 +18,7 @@ import chatService from "../controller/chats/chatService";
 import translateLanguage from "../controller/translate/translateLanguage";
 import logoutUser from "../controller/user/logoutUser";
 import deleteUser from "../controller/user/deleteUser";
+import updateUser from "../controller/user/updateUser";
 
 const router: Router = express.Router();
 
@@ -42,6 +43,7 @@ router.post(
   translateLanguage
 );
 router.post("/api/logoutUser", verifyTokenMiddleware, logoutUser);
+router.post("/api/updateUserInfo", verifyTokenMiddleware, updateUser);
 
 // GET REQUEST
 router.get("/api/userInformation", verifyTokenMiddleware, getUserInfo);
