@@ -222,6 +222,7 @@ server/
 | ------ | ---------------------- | ---------------------------- | ------------- |
 | GET    | `/api/userInformation` | Get current user information | Yes           |
 | POST   | `/api/survey`          | Update user survey/profile   | Yes           |
+| POST   | `/api/updateUserInfo`  | Update user profile details  | Yes           |
 
 ### Chat & Translation
 
@@ -230,6 +231,13 @@ server/
 | POST   | `/api/chatService` | Send message to AI tutor | Yes           |
 | GET    | `/api/chatHistory` | Get conversation history | Yes           |
 | POST   | `/api/translate`   | Translate text           | Yes           |
+
+### Session & Account
+
+| Method | Endpoint          | Description         | Auth Required |
+| ------ | ----------------- | ------------------- | ------------- |
+| POST   | `/api/logoutUser` | Logout current user | Yes           |
+| DELETE | `/api/deleteUser` | Delete user account | Yes           |
 
 ### Password Reset
 
@@ -277,7 +285,7 @@ The server implements rate limiting for various endpoints:
 
 - **Authentication routes:** 60 requests per minute
 - **OTP requests:** 3 requests per hour
-- **Chat/Translation:** 20 requests per hour
+- **Chat/Translation:** 6 requests per hour
 
 Rate limit configurations can be adjusted in `src/middleware/rateLimiter.ts`.
 
