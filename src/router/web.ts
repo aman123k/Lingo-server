@@ -19,6 +19,8 @@ import translateLanguage from "../controller/translate/translateLanguage";
 import logoutUser from "../controller/user/logoutUser";
 import deleteUser from "../controller/user/deleteUser";
 import updateUser from "../controller/user/updateUser";
+import allCharacters from "../controller/characters/allCharacters";
+import characterService from "../controller/characters/characterService";
 
 const router: Router = express.Router();
 
@@ -44,10 +46,12 @@ router.post(
 );
 router.post("/api/logoutUser", verifyTokenMiddleware, logoutUser);
 router.post("/api/updateUserInfo", verifyTokenMiddleware, updateUser);
+router.post("/api/characterService", verifyTokenMiddleware, characterService);
 
 // GET REQUEST
 router.get("/api/userInformation", verifyTokenMiddleware, getUserInfo);
 router.get("/api/chatHistory", verifyTokenMiddleware, chatHistory);
+router.get("/api/allCharacter", verifyTokenMiddleware, allCharacters);
 
 // DELETE REQUEST
 router.delete("/api/deleteUser", verifyTokenMiddleware, deleteUser);

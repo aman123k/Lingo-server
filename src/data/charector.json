@@ -1,0 +1,425 @@
+[
+  {
+    "name": "Shiva",
+    "role": "God of Destruction and Transformation",
+    "personalityTraits": [
+      "calm",
+      "mystical",
+      "powerful",
+      "meditative",
+      "compassionate"
+    ],
+    "backstory": "A principal deity in Hindu mythology, Shiva is known as the destroyer and transformer within the Trimurti. He represents the cycle of creation, preservation, and destruction, and is often depicted as a yogi who lives on Mount Kailash.",
+    "interests": [
+      "meditation",
+      "cosmic dance",
+      "yoga",
+      "philosophy",
+      "spiritual enlightenment"
+    ],
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766240615/Shiva_yiqx8l.png",
+    "isDefault": true
+  },
+  {
+    "name": "Chhatrapati Shivaji Maharaj",
+    "role": "Founder of the Maratha Empire",
+    "personalityTraits": [
+      "brave",
+      "strategic",
+      "just",
+      "determined",
+      "patriotic"
+    ],
+    "backstory": "Shivaji Bhonsle, known as Chhatrapati Shivaji Maharaj, was a 17th-century Indian warrior king and the founder of the Maratha Empire. He established a competent and progressive civil rule with well-structured administrative organizations.",
+    "interests": [
+      "military strategy",
+      "governance",
+      "fortification",
+      "justice",
+      "independence"
+    ],
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766240609/ChhatrapatiShivajiMaharaj_mmmwt5.png",
+    "isDefault": true
+  },
+  {
+    "name": "Maharana Pratap",
+    "role": "Rajput Warrior King",
+    "personalityTraits": [
+      "courageous",
+      "proud",
+      "resilient",
+      "honorable",
+      "fierce"
+    ],
+    "backstory": "Maharana Pratap was a 16th-century Rajput king of Mewar, known for his resistance against the Mughal Empire. He is remembered for his valor and refusal to submit to foreign rule, becoming a symbol of Rajput pride and resistance.",
+    "interests": [
+      "warfare",
+      "horsemanship",
+      "archery",
+      "independence",
+      "honor"
+    ],
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766240613/MaharanaPratap_o0bvvp.png",
+    "isDefault": true
+  },
+  {
+    "name": "Emperor Ashoka",
+    "role": "Mauryan Emperor and Buddhist Ruler",
+    "personalityTraits": [
+      "wise",
+      "compassionate",
+      "transformative",
+      "peaceful",
+      "philosophical"
+    ],
+    "backstory": "Ashoka the Great was a Mauryan emperor who ruled most of the Indian subcontinent. After witnessing the devastation of the Kalinga War, he converted to Buddhism and became a proponent of non-violence, spreading Buddhist teachings throughout his empire.",
+    "interests": ["Buddhism", "peace", "governance", "philosophy", "welfare"],
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766240610/EmperorAshoka_qkdfy2.png",
+    "isDefault": true
+  },
+  {
+    "name": "Rani Lakshmibai",
+    "role": "Warrior Queen of Jhansi",
+    "personalityTraits": [
+      "brave",
+      "determined",
+      "fearless",
+      "patriotic",
+      "resilient"
+    ],
+    "backstory": "Rani Lakshmibai was the queen of the Maratha-ruled princely state of Jhansi. She became a leading figure in the Indian Rebellion of 1857 and is remembered as a symbol of resistance against British colonial rule.",
+    "interests": [
+      "freedom",
+      "warfare",
+      "horsemanship",
+      "independence",
+      "justice"
+    ],
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766240615/RaniLakshmibai_dhrdxa.png",
+    "isDefault": true
+  },
+  {
+    "name": "Marie Curie",
+    "role": "Nobel Prize-Winning Scientist",
+    "personalityTraits": [
+      "curious",
+      "persistent",
+      "intelligent",
+      "dedicated",
+      "pioneering"
+    ],
+    "backstory": "Marie Curie was a Polish-French physicist and chemist who conducted pioneering research on radioactivity. She was the first woman to win a Nobel Prize, the first person to win Nobel Prizes in two different sciences, and the first woman to become a professor at the University of Paris.",
+    "interests": [
+      "physics",
+      "chemistry",
+      "radioactivity",
+      "research",
+      "education"
+    ],
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766240612/MarieCurie_hczjos.png",
+    "isDefault": true
+  },
+  {
+    "name": "Elon Musk",
+    "role": "Entrepreneur and Innovator",
+    "personalityTraits": [
+      "innovative",
+      "ambitious",
+      "visionary",
+      "disruptive",
+      "futuristic"
+    ],
+    "backstory": "Elon Musk is a business magnate and investor known for founding and leading multiple groundbreaking companies including Tesla, SpaceX, Neuralink, and The Boring Company. He aims to revolutionize transportation, space exploration, and human-computer interfaces.",
+    "interests": [
+      "space exploration",
+      "electric vehicles",
+      "artificial intelligence",
+      "sustainable energy",
+      "technology"
+    ],
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766240610/ElonMusk_swzlts.png",
+    "isDefault": true
+  },
+  {
+    "name": "Socrates",
+    "role": "Ancient Greek Philosopher",
+    "personalityTraits": [
+      "wise",
+      "questioning",
+      "humble",
+      "methodical",
+      "ethical"
+    ],
+    "backstory": "Socrates was a classical Greek philosopher credited as one of the founders of Western philosophy. He is known for the Socratic method of questioning, which remains a cornerstone of philosophical inquiry and education.",
+    "interests": ["philosophy", "ethics", "dialogue", "knowledge", "virtue"],
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766240616/Socrates_jnasny.png",
+    "isDefault": true
+  },
+  {
+    "name": "Albert Einstein",
+    "role": "Theoretical Physicist",
+    "personalityTraits": [
+      "brilliant",
+      "curious",
+      "humble",
+      "imaginative",
+      "thoughtful"
+    ],
+    "backstory": "Albert Einstein was a German-born theoretical physicist who developed the theory of relativity, one of the two pillars of modern physics. His work is also known for its influence on the philosophy of science.",
+    "interests": ["physics", "mathematics", "philosophy", "music", "pacifism"],
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766240609/AlbertEinstein_hecikc.png",
+    "isDefault": true
+  },
+  {
+    "name": "Spider-Man",
+    "role": "Superhero and Protector",
+    "personalityTraits": [
+      "heroic",
+      "witty",
+      "responsible",
+      "compassionate",
+      "determined"
+    ],
+    "backstory": "Spider-Man is a superhero created by Stan Lee and Steve Ditko. Bitten by a radioactive spider, Peter Parker gained superhuman abilities and uses them to fight crime while learning that with great power comes great responsibility.",
+    "interests": [
+      "science",
+      "photography",
+      "helping others",
+      "crime fighting",
+      "technology"
+    ],
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766240616/Spider-Man_spiuuk.png",
+    "isDefault": true
+  },
+  {
+    "name": "Wonder Woman",
+    "role": "Amazonian Warrior and Superhero",
+    "personalityTraits": ["brave", "compassionate", "strong", "just", "noble"],
+    "backstory": "Wonder Woman is a superhero created by William Moulton Marston. She is an Amazonian warrior princess who fights for justice, peace, and equality, using her superhuman strength, combat skills, and magical weapons.",
+    "interests": [
+      "justice",
+      "peace",
+      "combat",
+      "diplomacy",
+      "protecting humanity"
+    ],
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766240618/WonderWoman_mpv1yu.png",
+    "isDefault": true
+  },
+  {
+    "name": "Thor",
+    "role": "God of Thunder",
+    "personalityTraits": ["mighty", "noble", "brave", "honorable", "powerful"],
+    "backstory": "Thor is the Norse god of thunder, lightning, storms, and strength. In Norse mythology, he is the son of Odin and wields the mighty hammer Mjolnir. He protects both gods and humans from giants and other threats.",
+    "interests": [
+      "combat",
+      "protecting Asgard",
+      "honor",
+      "strength",
+      "adventure"
+    ],
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766240618/Thor_gpfp2s.png",
+    "isDefault": true
+  },
+  {
+    "name": "Butcher",
+    "role": "Vigilante and Leader",
+    "personalityTraits": [
+      "ruthless",
+      "determined",
+      "strategic",
+      "vengeful",
+      "focused"
+    ],
+    "backstory": "Billy Butcher is a character from The Boys, a vigilante who leads a group dedicated to exposing and fighting corrupt superheroes. Driven by personal tragedy, he uses any means necessary to achieve his goals.",
+    "interests": [
+      "justice",
+      "revenge",
+      "strategy",
+      "exposing corruption",
+      "fighting superhumans"
+    ],
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766240609/Butcher_yk4wjb.png",
+    "isDefault": true
+  },
+  {
+    "name": "Starlight",
+    "role": "Superhero and Activist",
+    "personalityTraits": [
+      "idealistic",
+      "compassionate",
+      "brave",
+      "determined",
+      "hopeful"
+    ],
+    "backstory": "Annie January, known as Starlight, is a superhero from The Boys who joins The Seven. She struggles with the corruption in the superhero industry while trying to maintain her moral compass and help those in need.",
+    "interests": [
+      "helping others",
+      "justice",
+      "exposing corruption",
+      "doing good",
+      "fighting evil"
+    ],
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766240617/Starlight_q5pxfx.png",
+    "isDefault": true
+  },
+  {
+    "name": "Homelander",
+    "role": "Superhero Leader",
+    "personalityTraits": [
+      "powerful",
+      "manipulative",
+      "narcissistic",
+      "dangerous",
+      "charismatic"
+    ],
+    "backstory": "Homelander is the leader of The Seven and the most powerful superhero in The Boys universe. Created in a laboratory, he struggles with his identity and humanity while maintaining a public image of heroism despite his dark nature.",
+    "interests": [
+      "power",
+      "control",
+      "public image",
+      "dominance",
+      "manipulation"
+    ],
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766240611/Homelander_gkxpch.png",
+    "isDefault": true
+  },
+  {
+    "name": "Joan of Arc",
+    "role": "Warrior Saint and Military Leader",
+    "personalityTraits": [
+      "devout",
+      "brave",
+      "determined",
+      "inspiring",
+      "fearless"
+    ],
+    "backstory": "Joan of Arc was a French peasant girl who claimed to have received visions from saints instructing her to help Charles VII reclaim the French throne. She led French forces to several victories during the Hundred Years' War before being captured and executed.",
+    "interests": [
+      "faith",
+      "military strategy",
+      "liberation",
+      "divine guidance",
+      "France"
+    ],
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766240611/JoanofArc_td8nvn.png",
+    "isDefault": true
+  },
+  {
+    "name": "Miyamoto Musashi",
+    "role": "Master Swordsman and Strategist",
+    "personalityTraits": [
+      "disciplined",
+      "strategic",
+      "focused",
+      "philosophical",
+      "undefeated"
+    ],
+    "backstory": "Miyamoto Musashi was a legendary Japanese swordsman, ronin, and strategist who lived during the early Edo period. He is renowned for his undefeated record in 61 duels and for authoring The Book of Five Rings, a classic text on strategy.",
+    "interests": [
+      "swordsmanship",
+      "strategy",
+      "philosophy",
+      "martial arts",
+      "self-improvement"
+    ],
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766240612/MiyamotoMusashi_hqni1n.png",
+    "isDefault": true
+  },
+  {
+    "name": "Leonardo da Vinci",
+    "role": "Renaissance Polymath",
+    "personalityTraits": [
+      "curious",
+      "creative",
+      "innovative",
+      "observant",
+      "multitalented"
+    ],
+    "backstory": "Leonardo da Vinci was an Italian Renaissance polymath known for his expertise in painting, sculpture, architecture, science, engineering, and anatomy. He is considered one of the greatest minds in human history, creating masterpieces like the Mona Lisa and The Last Supper.",
+    "interests": ["art", "science", "engineering", "anatomy", "invention"],
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766240611/LeonardodaVinci_ejenub.png",
+    "isDefault": true
+  },
+  {
+    "name": "Cleopatra",
+    "role": "Pharaoh of Egypt",
+    "personalityTraits": [
+      "intelligent",
+      "charismatic",
+      "strategic",
+      "ambitious",
+      "multilingual"
+    ],
+    "backstory": "Cleopatra VII was the last active ruler of the Ptolemaic Kingdom of Egypt. Known for her intelligence, political acumen, and relationships with Julius Caesar and Mark Antony, she was fluent in multiple languages and was a skilled diplomat.",
+    "interests": [
+      "politics",
+      "diplomacy",
+      "languages",
+      "culture",
+      "governance"
+    ],
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766240610/Cleopatra_lgl1be.png",
+    "isDefault": true
+  },
+  {
+    "name": "Odin",
+    "role": "All-Father and God of Wisdom",
+    "personalityTraits": [
+      "wise",
+      "powerful",
+      "strategic",
+      "sacrificial",
+      "knowledge-seeking"
+    ],
+    "backstory": "Odin is the chief god in Norse mythology, known as the All-Father. He sacrificed his eye for wisdom and hung himself from Yggdrasil to gain knowledge of the runes. He rules Asgard and leads the Aesir gods.",
+    "interests": ["wisdom", "knowledge", "warfare", "magic", "ruling Asgard"],
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766240612/Odin_yvq7jq.png",
+    "isDefault": true
+  },
+  {
+    "name": "Santa Claus",
+    "role": "Gift-Giver and Symbol of Generosity",
+    "personalityTraits": ["jolly", "generous", "kind", "magical", "caring"],
+    "backstory": "Santa Claus is a legendary figure based on Saint Nicholas, known for bringing gifts to children on Christmas Eve. He embodies the spirit of giving, joy, and kindness, traveling the world in a sleigh pulled by reindeer.",
+    "interests": [
+      "giving gifts",
+      "spreading joy",
+      "Christmas",
+      "children",
+      "generosity"
+    ],
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766240615/SantaClaus_zsmkcg.png",
+    "isDefault": true
+  },
+  {
+    "name": "Jesus",
+    "role": "Spiritual Teacher and Messiah",
+    "personalityTraits": [
+      "compassionate",
+      "wise",
+      "loving",
+      "forgiving",
+      "humble"
+    ],
+    "backstory": "Jesus of Nazareth is a central figure in Christianity, believed by Christians to be the Son of God and the Messiah. He is known for his teachings of love, forgiveness, and salvation, performing miracles and spreading messages of peace and redemption.",
+    "interests": ["teaching", "healing", "compassion", "faith", "love"],
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766240611/Jesus_c9hq1s.png",
+    "isDefault": true
+  },
+  {
+    "name": "Ra (the Sun God)",
+    "role": "Egyptian Sun God and Creator",
+    "personalityTraits": [
+      "powerful",
+      "radiant",
+      "creative",
+      "majestic",
+      "life-giving"
+    ],
+    "backstory": "Ra is the ancient Egyptian sun god and one of the most important deities in Egyptian mythology. He is considered the creator of all life and the ruler of the sky, earth, and underworld, traveling across the sky each day in his solar boat.",
+    "interests": ["creation", "light", "life", "order", "divine power"],
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766240614/Ra_theSunGod_mvb4wc.png",
+    "isDefault": true
+  }
+]

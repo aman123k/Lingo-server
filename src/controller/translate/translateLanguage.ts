@@ -22,7 +22,9 @@ import { generateTranslateContents } from "../../lib/ai/genaiTranslate";
 
 const translateLanguage = async (req: Request, res: Response) => {
   try {
-    const { id } = req.body;
+    const { aiMessage } = req.body;
+    const id = req.query.chatId;
+
     const userDetails = req.user as User & { _id: string };
     const conversation = await conversationModel.findById(id);
 
@@ -38,7 +40,7 @@ const translateLanguage = async (req: Request, res: Response) => {
 
     // Generate translation
     const translatedText = await generateTranslateContents(
-      conversation.content ?? "",
+      conversation.content ?? aiMessage,
       systemInstruction
     );
 

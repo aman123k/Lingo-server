@@ -43,4 +43,5 @@ export const SUCCESS_MESSAGES = {
   LOGGED_OUT: "Logged out. See you soon!",
   DELETE_USER: "Account deleted. We're sorry to see you go.",
   PROFILE_UPDATE: "User profile updated successfully.",
+  CHARACTERS_RETRIEVED: "Characters retrieved successfully",
 };

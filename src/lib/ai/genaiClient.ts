@@ -7,14 +7,23 @@ config();
 export type AIMsgRole = "user" | "model";
 export type AIMsg = { role: AIMsgRole; content: string };
 
-//Getting last 50 conversations messages
-export const getLastConversations = async (userId: string, mode: string) => {
+// Getting last 50 conversation messages, with optional extra filters (e.g. character, topic)
+export const getLastConversations = async (
+  userId: string,
+  mode: string,
+  extraFilter: Record<string, unknown> = {}
+) => {
+  const baseFilter = {
+    userId,
+    conversationMode: mode,
+  };
+
   const conversations = await conversationModel
-    .find({ userId: userId, conversationMode: mode })
+    .find({ ...extraFilter, ...baseFilter })
     .sort({ timestamp: -1 })
     .limit(50)
     .lean();
-  //console.log("Conversations:", conversations);
+  // console.log("Conversations:", conversations);
   return conversations;
 };
 
