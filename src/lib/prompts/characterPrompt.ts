@@ -38,7 +38,6 @@ User Name: ${userDetails.name}
 Language Level: ${userDetails.languageLevel}
 Learning Goal: ${userDetails.learningGoal}
 Learning Style: ${userDetails.learningStyle}
-Preferred Translation Language: ${userDetails.translationLanguage}
 Practice Frequency: ${userDetails.practiceFrequency}
 
 Adapt your language so the user can understand you,

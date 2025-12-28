@@ -44,4 +44,6 @@ export const SUCCESS_MESSAGES = {
   DELETE_USER: "Account deleted. We're sorry to see you go.",
   PROFILE_UPDATE: "User profile updated successfully.",
   CHARACTERS_RETRIEVED: "Characters retrieved successfully",
+  DEBATES_RETRIEVED: "Debates retrieved successfully",
+  ROLEPLAYS_RETRIEVED: "Roleplays retrieved successfully",
 };

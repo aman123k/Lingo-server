@@ -1,0 +1,110 @@
+[
+  {
+    "name": "Booking a Taxi",
+
+    "description": "A real-world situation where a person is trying to get a taxi for travel. The interaction typically involves requesting a ride, confirming the destination, asking about availability, estimated time, and fare, and responding as a taxi driver or booking assistant.",
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766937323/Booking_a_Taxi_qssnpv.png"
+  },
+  {
+    "name": "Booking a Hotel",
+
+    "description": "A scenario where a guest is checking into or booking a hotel room. The interaction includes greeting the guest, asking for booking details, room preferences, ID verification, stay duration, and responding like a hotel receptionist or booking staff.",
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766937318/Booking_a_Hotel_wu2l1q.png"
+  },
+  {
+    "name": "Grocery Shopping",
+
+    "description": "A daily-life situation where a customer is shopping in a supermarket. The interaction may involve asking about product availability, prices, offers, sections, or checkout help, responding like a store assistant or cashier.",
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766937331/Grocery_Shopping_at_a_Supermarket_apc56g.png"
+  },
+  {
+    "name": "Visiting a Library",
+
+    "description": "A quiet and formal scenario where a person visits a library. The interaction may involve asking for book locations, membership details, borrowing rules, study areas, or responding as a librarian or library assistant.",
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766937334/Visiting_a_Library_nk5i6u.png"
+  },
+  {
+    "name": "Attending a Cooking Class",
+
+    "description": "A guided learning scenario where a participant attends a cooking class. The interaction includes following instructions, asking about ingredients or techniques, and responding as a cooking instructor or class coordinator.",
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766937321/Attending_a_Cooking_Class_dxpo9x.png"
+  },
+  {
+    "name": "Exploring a Market",
+
+    "description": "A lively real-world scenario where a person is exploring a local market. The interaction may involve bargaining, asking prices, product details, or responding as a vendor or shopkeeper.",
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766937324/Exploring_a_Market_xjho2j.png"
+  },
+  {
+    "name": "Visiting a Café",
+
+    "description": "A casual social scenario where a customer visits a café. The interaction includes ordering food or drinks, asking about the menu, recommendations, customization, and responding as a café staff or barista.",
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766938548/Visiting_a_Cafe%CC%81_ioogik.png"
+  },
+  {
+    "name": "Going to a Park",
+
+    "description": "A relaxed outdoor scenario where a person is spending time in a public park. The interaction may involve casual conversation, guidance, safety rules, or responding as a park attendant or companion.",
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766938547/Going_to_a_Park_ckzbnw.png"
+  },
+  {
+    "name": "Attending a Festival",
+
+    "description": "A lively situation where a person is attending a cultural or public festival. The interaction may involve directions, event schedules, food stalls, tickets, or responding as an event organizer or vendor.",
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766938548/Attending_a_Festival_lh7yqk.png"
+  },
+  {
+    "name": "Visiting a Hair Salon",
+
+    "description": "A service-based scenario where a customer visits a hair salon. The interaction includes discussing hairstyles, services, pricing, appointments, and responding like a professional hairstylist or receptionist.",
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766937335/Visiting_a_Hair_Salon_ywwttt.png"
+  },
+  {
+    "name": "Ordering Flowers",
+
+    "description": "A situation where a customer is ordering flowers for an occasion. The interaction involves selecting flower types, arrangements, delivery details, and responding as a florist or shop assistant.",
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766937346/Ordering_Flowers_r030wp.png"
+  },
+  {
+    "name": "Ordering a Birthday Cake",
+
+    "description": "A customer-service scenario where a person is ordering a birthday cake. The interaction includes discussing flavors, size, customization, delivery date, and responding like a bakery staff member.",
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766937328/Ordering_a_Birthday_Cake_ntlunz.png"
+  },
+  {
+    "name": "Visiting an Art Gallery",
+
+    "description": "A cultural setting where a person is visiting an art gallery. The interaction may include asking about artworks, artists, entry rules, or responding as a gallery guide or curator.",
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766937335/Visiting_an_Art_Gallery_uglclk.png"
+  },
+  {
+    "name": "Going on a Hiking Adventure",
+
+    "description": "An outdoor adventure scenario where a person is preparing for or participating in a hike. The interaction may include route guidance, safety tips, weather updates, or responding as a guide or companion.",
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766937323/Going_on_a_Hiking_Adventure_dnlbep.png"
+  },
+  {
+    "name": "Attending a Concert",
+
+    "description": "An entertainment scenario where a person is attending a live concert. The interaction may involve ticket checks, seating guidance, rules, or responding as event staff or organizer.",
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766937323/Attending_a_Concert_ztwlzq.png"
+  },
+  {
+    "name": "Starlit Evening Date",
+    "perspective": "Romantic",
+    "description": "A romantic scenario where two people are spending quiet time together under the stars. The interaction focuses on emotional connection, gentle conversation, and responding in a warm, affectionate tone.",
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766937344/Starlit_Evening_Date_tzvfmi.png"
+  },
+  {
+    "name": "Romantic Café Encounter",
+    "perspective": "Romantic",
+    "description": "A romantic setting where two people share a meaningful moment at a café. The interaction includes soft conversation, emotional expressions, and responses that reflect intimacy and care.",
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766937329/Romantic_Cafe%CC%81_Encounter_ypjbtj.png"
+  },
+  {
+    "name": "Sunset Beach Walk",
+    "perspective": "Romantic",
+    "description": "A romantic scenario where a couple walks together along the beach at sunset. The interaction emphasizes calm emotions, companionship, reflection, and affectionate responses.",
+    "imageUrl": "https://res.cloudinary.com/dj5ogcaln/image/upload/v1766937330/Sunset_Beach_Walk_tuqshn.png"
+  }
+]

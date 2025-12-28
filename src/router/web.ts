@@ -21,6 +21,8 @@ import deleteUser from "../controller/user/deleteUser";
 import updateUser from "../controller/user/updateUser";
 import allCharacters from "../controller/characters/allCharacters";
 import characterService from "../controller/characters/characterService";
+import allDebates from "../controller/debates/allDebates";
+import allRoleplays from "../controller/roleplays/allRoleplays";
 
 const router: Router = express.Router();
 
@@ -52,6 +54,8 @@ router.post("/api/characterService", verifyTokenMiddleware, characterService);
 router.get("/api/userInformation", verifyTokenMiddleware, getUserInfo);
 router.get("/api/chatHistory", verifyTokenMiddleware, chatHistory);
 router.get("/api/allCharacter", verifyTokenMiddleware, allCharacters);
+router.get("/api/allDebates", verifyTokenMiddleware, allDebates);
+router.get("/api/allRoleplays", verifyTokenMiddleware, allRoleplays);
 
 // DELETE REQUEST
 router.delete("/api/deleteUser", verifyTokenMiddleware, deleteUser);

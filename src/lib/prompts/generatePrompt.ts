@@ -11,7 +11,6 @@ email: ${userDetails.email}
 languageLevel: ${userDetails.languageLevel}
 learningGoal: ${userDetails.learningGoal}
 learningStyle: ${userDetails.learningStyle}
-translationLanguage: ${userDetails.translationLanguage}
 practiceFrequency: ${userDetails.practiceFrequency}
 
 Guidelines:

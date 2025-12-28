@@ -34,15 +34,15 @@ const characterService = async (req: Request, res: Response) => {
     // Generate Basic Prompts with Character + User Information
     const systemInstruction = characterPrompt(currentCharacter, userDetails);
 
-    // // Clone incoming messages
+    // Clone incoming messages
     let allMessages = [...messages];
 
-    // // Append previous chats (enriching context)
+    // Append previous chats (enriching context)
     if (oldConversations) {
       allMessages.unshift(...oldConversations.reverse());
     }
 
-    // // Generate Detailed Reply
+    // Generate Detailed Reply
     const terseContents = buildContents(allMessages);
     const terseReply = await generateFromContents(
       terseContents,
@@ -73,7 +73,7 @@ const characterService = async (req: Request, res: Response) => {
       characterId: currentCharacter?._id,
     });
 
-    // // Save model message
+    // Save model message
     const modelMsg = await conversationModel.create({
       role: "model",
       conversationMode: "character",
