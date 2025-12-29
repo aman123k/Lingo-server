@@ -6,7 +6,6 @@ import {
   generateFromContents,
   getLastConversations,
 } from "../../lib/ai/genaiClient";
-import { userInformationPrompt } from "../../lib/prompts/generatePrompt";
 import { conversationModel } from "../../model/conversationModel";
 import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../../constants/messages";
 import { Character, characterModel } from "../../model/characterModel";
@@ -15,32 +14,40 @@ import { characterPrompt } from "../../lib/prompts/characterPrompt";
 const characterService = async (req: Request, res: Response) => {
   try {
     const { messages } = req.body;
-    const id = req.query.id as string;
+    const characterId = req.query.characterId as string;
     const userDetails = req.user as User & { _id: string };
 
+    // Validate inputs
+    if (!characterId) {
+      return res.status(400).json({
+        status: false,
+        message: "Character ID is required",
+      });
+    }
+
+    // Fetch character
     const currentCharacter = (await characterModel.findById(
-      id
+      characterId
     )) as Character & { _id: string };
 
-    // Fetch Previous Conversations for this user & character
-    const oldConversations = await getLastConversations(
-      userDetails._id,
-      "character",
-      {
+    if (!currentCharacter) {
+      return res.status(404).json({
+        status: false,
+        message: "Character not found",
+      });
+    }
+
+    // Fetch previous conversations for this user & character
+    const oldConversations =
+      (await getLastConversations(userDetails._id, "character", {
         characterName: currentCharacter.name,
-      }
-    );
+      })) || [];
 
     // Generate Basic Prompts with Character + User Information
     const systemInstruction = characterPrompt(currentCharacter, userDetails);
 
-    // Clone incoming messages
-    let allMessages = [...messages];
-
-    // Append previous chats (enriching context)
-    if (oldConversations) {
-      allMessages.unshift(...oldConversations.reverse());
-    }
+    // Combine previous and new messages
+    const allMessages = [...oldConversations.reverse(), ...messages];
 
     // Generate Detailed Reply
     const terseContents = buildContents(allMessages);
@@ -49,11 +56,10 @@ const characterService = async (req: Request, res: Response) => {
       systemInstruction
     );
 
-    // Find the real user message from the current request only (ignore system prompt)
-    const incomingUserMessage = messages
-      .slice()
+    // Extract latest user message from current request
+    const incomingUserMessage = [...messages]
       .reverse()
-      .find((m: AIMsg) => m.role === "user");
+      .find((m) => m.role === "user");
 
     if (!incomingUserMessage) {
       return res.status(400).json({
@@ -62,27 +68,29 @@ const characterService = async (req: Request, res: Response) => {
       });
     }
 
-    // Save user message
-    const userMsg = await conversationModel.create({
-      role: "user",
-      conversationMode: "character",
-      content: incomingUserMessage.content,
-      timestamp: new Date(),
-      userId: userDetails._id,
-      characterName: currentCharacter?.name,
-      characterId: currentCharacter?._id,
-    });
+    const timestamp = new Date();
 
-    // Save model message
-    const modelMsg = await conversationModel.create({
-      role: "model",
-      conversationMode: "character",
-      content: terseReply,
-      timestamp: new Date(),
-      userId: userDetails._id,
-      characterName: currentCharacter?.name,
-      characterId: currentCharacter?._id,
-    });
+    // Save user and model messages in parallel
+    const [userMsg, modelMsg] = await Promise.all([
+      conversationModel.create({
+        role: "user",
+        conversationMode: "character",
+        content: incomingUserMessage.content,
+        timestamp,
+        userId: userDetails._id,
+        characterName: currentCharacter.name,
+        characterId: currentCharacter._id,
+      }),
+      conversationModel.create({
+        role: "model",
+        conversationMode: "character",
+        content: terseReply,
+        timestamp,
+        userId: userDetails._id,
+        characterName: currentCharacter.name,
+        characterId: currentCharacter._id,
+      }),
+    ]);
 
     res.status(200).json({
       status: true,

@@ -17,21 +17,14 @@ const chatService = async (req: Request, res: Response) => {
     const userDetails = req.user as User & { _id: string };
 
     // Fetch Previous Conversations
-    const oldConversations = await getLastConversations(
-      userDetails._id,
-      "chat"
-    );
+    const oldConversations =
+      (await getLastConversations(userDetails._id, "chat")) || [];
 
     // Generate Basic Prompts with User Information
     const systemInstruction = userInformationPrompt(userDetails);
 
-    // Clone incoming messages
-    let allMessages = [...messages];
-
-    // Append previous chats (enriching context)
-    if (oldConversations) {
-      allMessages.unshift(...oldConversations.reverse());
-    }
+    // Combine old and new messages
+    const allMessages = [...oldConversations.reverse(), ...messages];
 
     // Generate Detailed Reply
     const terseContents = buildContents(allMessages);
@@ -40,11 +33,10 @@ const chatService = async (req: Request, res: Response) => {
       systemInstruction
     );
 
-    // Find the real user message from the current request only (ignore system prompt)
-    const incomingUserMessage = messages
-      .slice()
+    // Extract the latest user message from current request
+    const incomingUserMessage = [...messages]
       .reverse()
-      .find((m: AIMsg) => m.role === "user");
+      .find((m) => m.role === "user");
 
     if (!incomingUserMessage) {
       return res.status(400).json({
@@ -53,23 +45,25 @@ const chatService = async (req: Request, res: Response) => {
       });
     }
 
-    // Save user message
-    const userMsg = await conversationModel.create({
-      role: "user",
-      conversationMode: "chat",
-      content: incomingUserMessage.content,
-      timestamp: new Date(),
-      userId: userDetails._id,
-    });
+    const timestamp = new Date();
 
-    // Save model message
-    const modelMsg = await conversationModel.create({
-      role: "model",
-      conversationMode: "chat",
-      content: terseReply,
-      timestamp: new Date(),
-      userId: userDetails._id,
-    });
+    // Save both messages in parallel
+    const [userMsg, modelMsg] = await Promise.all([
+      conversationModel.create({
+        role: "user",
+        conversationMode: "chat",
+        content: incomingUserMessage.content,
+        timestamp,
+        userId: userDetails._id,
+      }),
+      conversationModel.create({
+        role: "model",
+        conversationMode: "chat",
+        content: terseReply,
+        timestamp,
+        userId: userDetails._id,
+      }),
+    ]);
 
     res.status(200).json({
       status: true,

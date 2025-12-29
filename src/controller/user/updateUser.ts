@@ -5,6 +5,7 @@ import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../../constants/messages";
 import { createToken } from "../../token/jwtToken";
 import setAuthCookie from "../../lib/storeCookie";
 import client from "../../redis/redisClient";
+import { conversationModel } from "../../model/conversationModel";
 
 const updateUser = async (req: Request, res: Response) => {
   try {
@@ -23,56 +24,59 @@ const updateUser = async (req: Request, res: Response) => {
     const userDetails = req.user as User & { _id: string };
     const hashPassword = updatePass ? await bcrypt.hash(updatePass, 10) : false;
 
-    // ---------------- PROFILE UPDATE ----------------
+    let updatePayload: Partial<User> = {};
+
+    /* ---------------- PROFILE UPDATE ---------------- */
     if (title === "Profile") {
-      const updateUser = await userModel.findByIdAndUpdate(
-        userDetails?._id,
-        {
-          name,
-          email,
-          ...(hashPassword && { password: hashPassword }),
-          ...(hashPassword && { loginWith: "PASSWORD" }),
-        },
-        { new: true }
-      );
+      if (name) updatePayload.name = name;
+      if (email) updatePayload.email = email;
 
-      // Generate JWT token for authenticated user
-      const userToken = updateUser && createToken(updateUser.toObject());
+      if (updatePass) {
+        const hashedPassword = await bcrypt.hash(updatePass, 10);
+        updatePayload.password = hashedPassword;
+        updatePayload.loginWith = "PASSWORD";
+      }
+    } else {
+      /* ---------------- PREFERENCES UPDATE ---------------- */
+      if (
+        translationLanguage &&
+        translationLanguage !== userDetails.translationLanguage
+      ) {
+        await conversationModel.updateMany(
+          { userId: userDetails._id },
+          { $unset: { translatedContent: "" } }
+        );
+      }
 
-      // Set authentication cookie in response
-      setAuthCookie(res, userToken ?? "");
+      updatePayload.translationLanguage = translationLanguage;
+      updatePayload.languageLevel = languageLevel;
+      updatePayload.learningStyle = learningStyle;
+    }
 
-      // Cache user data in Redis with 24-hour expiration (86400 seconds)
-      await client.set(userDetails?._id, JSON.stringify(updateUser), {
-        EX: 86400,
+    const updatedUser = await userModel.findByIdAndUpdate(
+      userDetails._id,
+      updatePayload,
+      { new: true }
+    );
+    if (!updatedUser) {
+      return res.status(404).json({
+        status: false,
+        message: ERROR_MESSAGES.USER_NOT_FOUND,
       });
     }
-    // ---------------- PREFERENCES UPDATE ----------------
-    else {
-      const updateUser = await userModel.findByIdAndUpdate(
-        userDetails?._id,
-        {
-          translationLanguage,
-          languageLevel,
-          learningStyle,
-        },
-        { new: true }
-      );
 
-      // Generate JWT token for authenticated user
-      const userToken = updateUser && createToken(updateUser.toObject());
+    /* ---------------- TOKEN + COOKIE ---------------- */
+    const userToken = createToken(updatedUser.toObject());
+    setAuthCookie(res, userToken);
 
-      // Set authentication cookie in response
-      setAuthCookie(res, userToken ?? "");
+    /* ---------------- REDIS CACHE ---------------- */
+    await client.set(userDetails?._id, JSON.stringify(updatePayload), {
+      EX: 86400,
+    });
 
-      // Cache user data in Redis with 24-hour expiration (86400 seconds)
-      await client.set(userDetails?._id, JSON.stringify(updateUser), {
-        EX: 86400,
-      });
-    }
-    res.status(200).json({
+    return res.status(200).json({
       status: true,
-      message: SUCCESS_MESSAGES?.PROFILE_UPDATE,
+      message: SUCCESS_MESSAGES.PROFILE_UPDATE,
     });
   } catch (error) {
     // Log error for debugging and monitoring

@@ -9,13 +9,6 @@ export const generateTranslateContents = async (
   // GenAI Client Setup
   const apiKey = process.env.GEMINI_API_KEY as string;
 
-  // Tools Configuration
-  const tools = [
-    {
-      googleSearch: {},
-    },
-  ];
-
   if (!apiKey) {
     throw new Error("Missing API key for Google GenAI");
   }
@@ -28,8 +21,12 @@ export const generateTranslateContents = async (
   });
 
   const coonfig = {
-    tools,
     systemInstruction: systemInstruction,
+    generationConfig: {
+      temperature: 0,
+      topP: 1,
+      maxOutputTokens: 2048,
+    },
   };
 
   const response = await genaiClient.models.generateContentStream({

@@ -53,6 +53,13 @@ const registerUser = async (req: Request, res: Response) => {
     // Save new user to database
     const registerUser = await newUserDoc.save();
 
+    if (!registerUser) {
+      return res.status(404).json({
+        status: false,
+        message: ERROR_MESSAGES.REGISTRATION_FAILED,
+      });
+    }
+
     // Return success response with appropriate route
     res.status(200).json({
       status: true,

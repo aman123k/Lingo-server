@@ -5,7 +5,7 @@ export const WELCOME_TEMPLATES: Record<
   (params: any) => string
 > = {
   chat: () =>
-    "Hey! I'm Jennifer, your personal AI language teacher. Ask me anything? 🙂",
+    "Hi! I’m Jennifer, your personal AI language coach. 😊 Ask me anything—learning starts with curiosity!",
 
   character: (p) => getCharacterMessage(p.characterName),
 
@@ -21,11 +21,7 @@ export const WELCOME_TEMPLATES: Record<
     }. Let's begin! 🎬`;
   },
 
-  debate: (p) => {
-    const topic = p.topic ? ` on "${p.topic}"` : "";
-    const pos = p.position ? `. You're arguing ${p.position}` : "";
-    return `Ready for a debate${topic}?${pos}. Let's have a thoughtful discussion! 💬`;
-  },
+  debate: (p) => getDebateWelcomeMessage(p.topic),
 };
 
 function getCharacterMessage(characterName: string): string {
@@ -141,4 +137,116 @@ function getCharacterMessage(characterName: string): string {
   ];
   const randomFallback = Math.floor(Math.random() * fallbackGreetings.length);
   return fallbackGreetings[randomFallback];
+}
+
+function getDebateWelcomeMessage(topic: string) {
+  const intros: Record<string, string[]> = {
+    "Tourism Impact": [
+      "🌍 Tourism supports economic growth and cultural exchange, but it can also harm the environment and local communities. Where do you stand?",
+      "Tourism brings both opportunity and strain. Do its benefits outweigh the long-term costs?",
+    ],
+
+    "Animal Entertainment": [
+      "🐘 Animal entertainment raises ethical concerns about confinement, stress, and exploitation. What is your viewpoint?",
+      "Is human entertainment ever justified when it affects animal welfare?",
+    ],
+
+    "Eating Meat": [
+      "🍖 Eating meat involves nutrition, tradition, ethics, and environmental impact. Which side do you support?",
+      "Is eating meat a necessity, a cultural choice, or an ethical issue?",
+    ],
+
+    "Free Public Transport": [
+      "🚌 Free public transport can improve accessibility and reduce pollution, but can it be sustained financially?",
+      "Should public transport be a basic right, or does free access create economic challenges?",
+    ],
+
+    "Universal Basic Income": [
+      "💰 Universal Basic Income promises financial security, but could it disrupt economic balance?",
+      "Is UBI a solution to inequality or a policy with unintended consequences?",
+    ],
+
+    "Compulsory Retirement Age": [
+      "⏳ A fixed retirement age creates opportunities for younger workers, but may undervalue experience. What’s your take?",
+      "Should retirement be mandatory, or should experience and ability decide?",
+    ],
+
+    "Space Exploration": [
+      "🚀 Space exploration drives innovation and inspiration, but demands massive investment. Is it worth the cost?",
+      "Should humanity prioritize space exploration over solving problems on Earth?",
+    ],
+
+    "Alternative to Fossil Fuels": [
+      "🔋 Renewable energy reduces emissions and promotes sustainability, but is it ready to fully replace fossil fuels?",
+      "Are alternatives to fossil fuels the ultimate solution, or do they come with new challenges?",
+    ],
+
+    "Free University": [
+      "🎓 Free university education increases access to learning, but requires strong public funding. Is it practical?",
+      "Should higher education be free for everyone, or should students share the cost?",
+    ],
+
+    "One-Child Policy": [
+      "👶 The one-child policy controlled population growth but caused social and ethical challenges. Was it justified?",
+      "Can population control policies ever be effective without harming individual rights?",
+    ],
+
+    "Remote Work": [
+      "🏠 Remote work offers flexibility and work-life balance, but may reduce collaboration and social connection. What do you think?",
+      "Is remote work the future of productivity or a barrier to teamwork?",
+    ],
+
+    "Nuclear Energy Source": [
+      "⚛️ Nuclear energy provides low-carbon power, but raises safety and waste concerns. Is it worth the risk?",
+      "Should nuclear energy be embraced as a climate solution or avoided due to its dangers?",
+    ],
+
+    "Violent Video Games and Real-Life Violence": [
+      "🎮 Do violent video games influence real-life behavior, or are they simply harmless entertainment?",
+      "Is there a meaningful link between virtual violence and real-world aggression?",
+    ],
+
+    "Banning Sugary Drinks": [
+      "🥤 Banning sugary drinks aims to improve public health, but does it restrict personal freedom?",
+      "Should governments regulate sugary drinks for health reasons, or let individuals decide?",
+    ],
+
+    "Global Responsibility": [
+      "🌐 Global challenges require shared responsibility, but who should take the lead?",
+      "Is global responsibility a collective duty or an unrealistic expectation?",
+    ],
+
+    "Promoting Nationalism": [
+      "🏳️ Nationalism can strengthen unity, but it can also encourage division. Where should the balance lie?",
+      "Does promoting nationalism build identity or fuel exclusion and conflict?",
+    ],
+
+    "Climate Change": [
+      "🌡️ Climate change threatens ecosystems, economies, and human life. How urgent should our response be?",
+      "Who bears the greatest responsibility for addressing climate change?",
+    ],
+
+    "Drinking Age": [
+      "🍺 Legal drinking age laws aim to protect public safety, but do they limit personal freedom?",
+      "Should drinking age be based on maturity, culture, or strict regulation?",
+    ],
+
+    "Right to Vote": [
+      "🗳️ The right to vote is central to democracy, but should it ever have limits?",
+      "Is voting an unconditional right, or should responsibility and awareness play a role?",
+    ],
+  };
+
+  const messages = intros[topic];
+
+  if (messages?.length) {
+    return messages[Math.floor(Math.random() * messages.length)];
+  }
+
+  // Intelligent fallback
+  return (
+    "💬 Let’s begin the discussion.\n" +
+    "Share your viewpoint, and I’ll respond with thoughtful questions and counterarguments.\n\n" +
+    "Whenever you’re ready, state your position."
+  );
 }

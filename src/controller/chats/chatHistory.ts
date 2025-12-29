@@ -10,102 +10,106 @@ import { WELCOME_TEMPLATES } from "../../lib/templates/welcomeTemplate";
 
 const chatHistory = async (req: Request, res: Response) => {
   try {
-    // Fetch conversations from database for the authenticated user
     const userDetails = req.user as User & { _id: string };
+    const query = req.query;
 
-    const {
-      mode = "chat",
-      characterName,
-      roleName,
-      scenario,
-      topic,
-      position,
-    } = req.query;
-
-    const characterId = req.query.id as string;
-
-    // Validate and cast mode to ConversationMode
+    // Allowed conversation modes
     const validModes: ConversationMode[] = [
       "chat",
       "character",
       "roleplay",
       "debate",
     ];
+
     const conversationMode: ConversationMode = validModes.includes(
-      mode as ConversationMode
+      (query.mode as ConversationMode) || ""
     )
-      ? (mode as ConversationMode)
+      ? (query.mode as ConversationMode)
       : "chat";
 
-    // Pagination Logic
-    const limit = 20;
-    const page = parseInt(req.query.page as string) || 1;
+    // Pagination
+    const limit = parseInt(query.limit as string) || 20;
+    const page = parseInt(query.page as string) || 1;
     const skip = (page - 1) * limit;
-    // 2. Convert the string ID into a MongoDB ObjectId
-    const userIdObjectId = new mongoose.Types.ObjectId(userDetails._id);
 
-    // 3. Define the common filter object
-    const queryFilter: any = {
-      userId: userIdObjectId,
-      conversationMode: conversationMode,
+    // Helper to safely convert string to ObjectId
+    const toObjectId = (id?: string) => {
+      try {
+        return id ? new mongoose.Types.ObjectId(id) : undefined;
+      } catch {
+        return undefined;
+      }
     };
 
-    // Add optional filters dynamically
-    if (characterId)
-      queryFilter.characterId = new mongoose.Types.ObjectId(characterId);
+    // Build dynamic filter
+    const filter: any = {
+      userId: new mongoose.Types.ObjectId(userDetails._id),
+      conversationMode,
+    };
 
-    if (roleName) queryFilter.roleName = roleName;
-    if (scenario) queryFilter.scenario = scenario;
-    if (topic) queryFilter.topic = topic;
-    if (position) queryFilter.position = position;
+    const optionalFields = [
+      "characterId",
+      "debateId",
+      "topic",
+      "characterName",
+      "roleName",
+      "scenario",
+      "position",
+    ] as const;
 
-    const total = await conversationModel.countDocuments(queryFilter);
+    optionalFields.forEach((field) => {
+      if (query[field]) {
+        if (field === "characterId" || field === "debateId") {
+          const idObj = toObjectId(query[field] as string);
+          if (idObj) filter[field] = idObj;
+        } else {
+          filter[field] = query[field];
+        }
+      }
+    });
 
-    // 1. Get the dynamic content from our template map
-    const dynamicContent = WELCOME_TEMPLATES[conversationMode](req.query);
+    // Count total messages
+    const total = await conversationModel.countDocuments(filter);
 
-    // Retrieve paginated messages
-    const messages = await conversationModel
-      .find(queryFilter)
+    // Get messages
+    let messages = await conversationModel
+      .find(filter)
       .sort({ timestamp: -1 })
       .skip(skip)
       .limit(limit);
 
-    // If no conversations exist, initialize with a welcome message
-    if (messages?.length <= 0 || !messages) {
-      // Build initial message with mode-specific fields
-      const initialBotMessageData: any = {
+    // Initialize with welcome message if empty
+    if (!messages || messages.length === 0) {
+      const initialMessageData: any = {
         userId: userDetails._id,
         role: "model",
-        conversationMode: conversationMode,
-        content: dynamicContent,
+        conversationMode,
+        content: WELCOME_TEMPLATES[conversationMode](query),
       };
-
-      // Add mode-specific fields to initial message if filters are provided
-      if (characterName) initialBotMessageData.characterName = characterName;
-      if (characterId) initialBotMessageData.characterId = characterId;
-      if (roleName) initialBotMessageData.roleName = roleName;
-      if (scenario) initialBotMessageData.scenario = scenario;
-      if (topic) initialBotMessageData.topic = topic;
-      if (position) initialBotMessageData.position = position;
-
-      const initialBotMessage = new conversationModel(initialBotMessageData);
-
-      // Save the initial message to the database
-      await initialBotMessage.save();
-      return res.status(200).json({
-        status: true,
-        message: SUCCESS_MESSAGES?.INITIALBOTMESSAGE,
-        data: [initialBotMessage],
+      console.log(WELCOME_TEMPLATES[conversationMode](query));
+      // Add optional fields dynamically
+      optionalFields.forEach((field) => {
+        if (query[field]) initialMessageData[field] = query[field];
       });
-    } else {
+
+      const initialMessage = new conversationModel(initialMessageData);
+      await initialMessage.save();
+
       return res.status(200).json({
         status: true,
-        message: SUCCESS_MESSAGES?.OLDER_MESSAGE,
-        data: messages.reverse(),
-        total,
+        message: SUCCESS_MESSAGES.INITIALBOTMESSAGE,
+        data: [initialMessage],
       });
     }
+    // Return messages (oldest first)
+    messages = messages.reverse();
+
+    return res.status(200).json({
+      status: true,
+      message: SUCCESS_MESSAGES.OLDER_MESSAGE,
+      data: messages,
+      total,
+    });
   } catch (error) {
     console.log(ERROR_MESSAGES?.CHAT_HISTORY_ERROR, error);
     res.status(500).json({

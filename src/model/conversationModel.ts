@@ -19,8 +19,7 @@ interface Conversation {
   scenario?: string;
   // Debate mode fields
   topic?: string;
-  position?: "for" | "against";
-  argumentNumber?: number;
+  debateId: mongoose.Types.ObjectId;
 }
 
 interface conversationDocument extends Conversation, Document {}
@@ -41,11 +40,11 @@ const conversationSchema = new Schema<conversationDocument>({
   userId: { type: Schema.Types.ObjectId, required: true, ref: "user" },
   characterName: { type: String, trim: true },
   characterId: { type: Schema.Types.ObjectId, ref: "character" },
+  topic: { type: String, trim: true },
+  debateId: { type: Schema.Types.ObjectId, ref: "debate" },
+
   roleName: { type: String, trim: true },
   scenario: { type: String, trim: true },
-  topic: { type: String, trim: true },
-  position: { type: String, enum: ["for", "against"] },
-  argumentNumber: { type: Number, min: 0 },
 });
 
 const conversationModel = model<conversationDocument>(

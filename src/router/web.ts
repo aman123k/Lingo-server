@@ -23,6 +23,7 @@ import allCharacters from "../controller/characters/allCharacters";
 import characterService from "../controller/characters/characterService";
 import allDebates from "../controller/debates/allDebates";
 import allRoleplays from "../controller/roleplays/allRoleplays";
+import debateService from "../controller/debates/debatesService";
 
 const router: Router = express.Router();
 
@@ -49,6 +50,7 @@ router.post(
 router.post("/api/logoutUser", verifyTokenMiddleware, logoutUser);
 router.post("/api/updateUserInfo", verifyTokenMiddleware, updateUser);
 router.post("/api/characterService", verifyTokenMiddleware, characterService);
+router.post("/api/debateService", verifyTokenMiddleware, debateService);
 
 // GET REQUEST
 router.get("/api/userInformation", verifyTokenMiddleware, getUserInfo);
