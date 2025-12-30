@@ -1,4 +1,4 @@
-# EnglishTutor Server
+# EnglishTutor Server (Lingo server)
 
 A Node.js/Express.js backend server for an AI-powered English learning platform. This server provides RESTful APIs for user authentication, AI-powered chat conversations, language translation, and user management features.
 
@@ -24,9 +24,12 @@ A Node.js/Express.js backend server for an AI-powered English learning platform.
   - JWT-based authentication
   - Cookie-based session management
 
-- **AI-Powered Chat Service**
+- **AI-Powered Chat Services**
 
-  - Interactive conversations with AI tutor (Jennifer)
+  - **AI Tutor (Jennifer):** Interactive conversations with personalized AI tutor
+  - **Character Conversations:** Role-play with famous personalities and historical figures
+  - **Debate Simulations:** Practice argumentation with AI debate partners
+  - **Roleplay Scenarios:** Real-world conversation practice (booking hotels, shopping, etc.)
   - Context-aware responses using conversation history
   - Personalized learning based on user profile
   - Streaming responses from Google Gemini AI
@@ -41,6 +44,24 @@ A Node.js/Express.js backend server for an AI-powered English learning platform.
 
   - Real-time text translation
   - Supports multiple target languages
+
+- **Character Conversations**
+
+  - Role-play with famous personalities and historical figures (Shiva, Einstein, etc.)
+  - Interactive storytelling and character-driven conversations
+  - Personality-based responses with rich backstories
+
+- **Debate Simulations**
+
+  - Practice argumentation and critical thinking skills
+  - Debate various topics from multiple perspectives
+  - AI opponents with different viewpoints and debating styles
+
+- **Roleplay Scenarios**
+
+  - Real-world conversation practice (booking hotels, shopping, taxi rides, etc.)
+  - Contextual learning through practical situations
+  - Scenario-based language immersion
 
 - **Password Reset**
 
@@ -158,21 +179,33 @@ server/
 │   ├── constants/            # Application constants
 │   │   └── messages.ts
 │   ├── controller/           # Business logic controllers
+│   │   ├── characters/
+│   │   │   ├── allCharacters.ts
+│   │   │   └── characterService.ts
 │   │   ├── chats/
 │   │   │   ├── chatHistory.ts
 │   │   │   └── chatService.ts
+│   │   ├── debates/
+│   │   │   ├── allDebates.ts
+│   │   │   └── debatesService.ts
 │   │   ├── otp/
 │   │   │   ├── otpTemplate.ts
 │   │   │   ├── sentOtp.ts
 │   │   │   └── verifyOtp.ts
+│   │   ├── roleplays/
+│   │   │   ├── allRoleplays.ts
+│   │   │   └── roleplaysService.ts
 │   │   ├── survey/
 │   │   │   └── updateSurvey.ts
 │   │   ├── translate/
 │   │   │   └── translateLanguage.ts
 │   │   └── user/
+│   │       ├── deleteUser.ts
 │   │       ├── getUser.ts
 │   │       ├── loginUser.ts
-│   │       └── registerUser.ts
+│   │       ├── logoutUser.ts
+│   │       ├── registerUser.ts
+│   │       └── updateUser.ts
 │   ├── db/                   # Database connection
 │   │   └── connectDb.ts
 │   ├── index.ts              # Application entry point
@@ -190,8 +223,15 @@ server/
 │   │   ├── rateLimiter.ts
 │   │   └── verifyToken.ts
 │   ├── model/                # Mongoose models
+│   │   ├── characterModel.ts
 │   │   ├── conversationModel.ts
+│   │   ├── debateModel.ts
+│   │   ├── roleplayModel.ts
 │   │   └── userModel.ts
+│   ├── data/                 # Static data files
+│   │   ├── charector.json
+│   │   ├── debates.json
+│   │   └── roleplays.json
 │   ├── redis/                # Redis client
 │   │   └── redisClient.ts
 │   ├── router/               # API routes
@@ -226,11 +266,17 @@ server/
 
 ### Chat & Translation
 
-| Method | Endpoint           | Description              | Auth Required |
-| ------ | ------------------ | ------------------------ | ------------- |
-| POST   | `/api/chatService` | Send message to AI tutor | Yes           |
-| GET    | `/api/chatHistory` | Get conversation history | Yes           |
-| POST   | `/api/translate`   | Translate text           | Yes           |
+| Method | Endpoint                | Description                      | Auth Required |
+| ------ | ----------------------- | -------------------------------- | ------------- |
+| POST   | `/api/chatService`      | Send message to AI tutor         | Yes           |
+| POST   | `/api/characterService` | Chat with AI characters          | Yes           |
+| POST   | `/api/debateService`    | Participate in AI debates        | Yes           |
+| POST   | `/api/roleplayService`  | Practice roleplay scenarios      | Yes           |
+| GET    | `/api/chatHistory`      | Get conversation history         | Yes           |
+| GET    | `/api/allCharacter`     | Get available characters         | Yes           |
+| GET    | `/api/allDebates`       | Get available debate topics      | Yes           |
+| GET    | `/api/allRoleplays`     | Get available roleplay scenarios | Yes           |
+| POST   | `/api/translate`        | Translate text                   | Yes           |
 
 ### Session & Account
 
@@ -335,9 +381,34 @@ Stores user information including:
 Stores chat conversations:
 
 - User and AI messages
-- Conversation mode (chat, translate, etc.)
+- Conversation mode (chat, character, debate, roleplay, etc.)
 - Timestamps
 - User association
+- Mode-specific metadata (character names, debate topics, etc.)
+
+#### Character Model
+
+Stores character information:
+
+- Character profiles with personalities and backstories
+- Personality traits and interests
+- Image URLs and descriptions
+
+#### Debate Model
+
+Stores debate topics:
+
+- Debate subjects with multiple perspectives
+- Topic descriptions and viewpoints
+- Associated images and metadata
+
+#### Roleplay Model
+
+Stores roleplay scenarios:
+
+- Practical conversation scenarios
+- Situation descriptions and contexts
+- Learning objectives and practice areas
 
 ### Middleware
 
@@ -352,6 +423,9 @@ Stores chat conversations:
 - JWT tokens are stored in HTTP-only cookies for security
 - Conversation history is limited to the last 50 messages for context
 - The AI tutor (Jennifer) is personalized based on user survey data
+- Character conversations maintain personality consistency across sessions
+- Debate simulations provide balanced perspectives on controversial topics
+- Roleplay scenarios focus on practical, real-world language use
 - OTP codes are stored in Redis with expiration times
 
 ## 🔒 Security Considerations
