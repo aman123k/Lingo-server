@@ -68,7 +68,9 @@ const characterService = async (req: Request, res: Response) => {
       });
     }
 
-    const timestamp = new Date();
+    // Use slightly different timestamps for user and model messages
+    const userTimestamp = new Date();
+    const modelTimestamp = new Date(userTimestamp.getTime() + 50); // 50ms later
 
     // Save user and model messages in parallel
     const [userMsg, modelMsg] = await Promise.all([
@@ -76,7 +78,7 @@ const characterService = async (req: Request, res: Response) => {
         role: "user",
         conversationMode: "character",
         content: incomingUserMessage.content,
-        timestamp,
+        timestamp: userTimestamp,
         userId: userDetails._id,
         characterName: currentCharacter.name,
         characterId: currentCharacter._id,
@@ -85,7 +87,7 @@ const characterService = async (req: Request, res: Response) => {
         role: "model",
         conversationMode: "character",
         content: terseReply,
-        timestamp,
+        timestamp: modelTimestamp,
         userId: userDetails._id,
         characterName: currentCharacter.name,
         characterId: currentCharacter._id,

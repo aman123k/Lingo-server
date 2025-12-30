@@ -49,17 +49,20 @@ const chatHistory = async (req: Request, res: Response) => {
 
     const optionalFields = [
       "characterId",
+      "characterName",
       "debateId",
       "topic",
-      "characterName",
-      "roleName",
       "scenario",
-      "position",
+      "roleplayId",
     ] as const;
 
     optionalFields.forEach((field) => {
       if (query[field]) {
-        if (field === "characterId" || field === "debateId") {
+        if (
+          field === "characterId" ||
+          field === "debateId" ||
+          field === "roleplayId"
+        ) {
           const idObj = toObjectId(query[field] as string);
           if (idObj) filter[field] = idObj;
         } else {

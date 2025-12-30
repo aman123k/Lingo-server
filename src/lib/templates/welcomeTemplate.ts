@@ -1,5 +1,6 @@
 import { ConversationMode } from "../../model/conversationModel";
 
+// Welcome message templates for different conversation modes
 export const WELCOME_TEMPLATES: Record<
   ConversationMode,
   (params: any) => string
@@ -9,21 +10,12 @@ export const WELCOME_TEMPLATES: Record<
 
   character: (p) => getCharacterMessage(p.characterName),
 
-  roleplay: (p) => {
-    const details = [
-      p.roleName && `as ${p.roleName}`,
-      p.scenario && `in ${p.scenario}`,
-    ]
-      .filter(Boolean)
-      .join(" ");
-    return `Welcome to roleplay mode!${
-      details ? " " + details : ""
-    }. Let's begin! 🎬`;
-  },
+  roleplay: (p) => getRoleplayWelcomeMessage(p.scenario),
 
   debate: (p) => getDebateWelcomeMessage(p.topic),
 };
 
+// Generate character-specific welcome message
 function getCharacterMessage(characterName: string): string {
   const messages: Record<string, string[]> = {
     Shiva: [
@@ -139,6 +131,7 @@ function getCharacterMessage(characterName: string): string {
   return fallbackGreetings[randomFallback];
 }
 
+// Generate debate welcome message based on topic
 function getDebateWelcomeMessage(topic: string) {
   const intros: Record<string, string[]> = {
     "Tourism Impact": [
@@ -248,5 +241,114 @@ function getDebateWelcomeMessage(topic: string) {
     "💬 Let’s begin the discussion.\n" +
     "Share your viewpoint, and I’ll respond with thoughtful questions and counterarguments.\n\n" +
     "Whenever you’re ready, state your position."
+  );
+}
+
+// Generate roleplay welcome message based on scenario
+function getRoleplayWelcomeMessage(scenario: string) {
+  const intros: Record<string, string[]> = {
+    "Booking a Taxi": [
+      "🚖 You are a passenger looking to book a taxi. I’m the driver.\nTell me your pickup location and destination to get started.",
+      "A taxi has arrived. I’m your driver—where should I take you today?",
+    ],
+
+    "Booking a Hotel": [
+      "🏨 You’re a guest arriving at a hotel. I’m the receptionist.\nHow can I assist you with your booking?",
+      "Welcome! I’m at the front desk—may I know your booking details?",
+    ],
+
+    "Grocery Shopping": [
+      "🛒 You’re shopping in a supermarket. I’m here to help as the store assistant.\nWhat are you looking for today?",
+      "Hello! I’m assisting customers in the store—need help finding anything?",
+    ],
+
+    "Visiting a Library": [
+      "📚 You’re visiting a library. I’m the librarian here to help you.\nWhat would you like to read or find?",
+      "Welcome to the library. I’m available if you need books or guidance.",
+    ],
+
+    "Attending a Cooking Class": [
+      "👩‍🍳 You’re attending a cooking class. I’m your instructor today.\nAre you ready to begin?",
+      "Welcome! I’ll guide you through today’s recipe—let’s start.",
+    ],
+
+    "Exploring a Market": [
+      "🛍️ You’re exploring a local market. I’m a shopkeeper here.\nFeel free to ask about prices or products.",
+      "Welcome! I sell fresh goods—what caught your attention?",
+    ],
+
+    "Visiting a Café": [
+      "☕ You’re at a café. I’m the barista taking orders.\nWhat would you like today?",
+      "Welcome in! I’m behind the counter—ready when you are.",
+    ],
+
+    "Going to a Park": [
+      "🌳 You’re spending time at a public park. I’m the park attendant.\nLet me know if you need any help.",
+      "Welcome! Enjoy the park—feel free to ask me anything.",
+    ],
+
+    "Attending a Festival": [
+      "🎉 You’re attending a festival. I’m part of the event staff.\nWhat would you like to explore first?",
+      "Welcome to the festival! I can help with directions or events.",
+    ],
+
+    "Visiting a Hair Salon": [
+      "💇 You’re visiting a hair salon. I’m your stylist today.\nWhat kind of look are you going for?",
+      "Welcome! Take a seat and tell me how you’d like your hair done.",
+    ],
+
+    "Ordering Flowers": [
+      "🌸 You’re ordering flowers. I’m the florist here to help.\nWhat’s the occasion?",
+      "Welcome! I can suggest arrangements—who are the flowers for?",
+    ],
+
+    "Ordering a Birthday Cake": [
+      "🎂 You’re ordering a birthday cake. I’m the bakery assistant.\nLet’s design something special.",
+      "Hi there! Tell me the flavor and size you’re looking for.",
+    ],
+
+    "Visiting an Art Gallery": [
+      "🖼️ You’re visiting an art gallery. I’m the guide here.\nWould you like to learn about any artwork?",
+      "Welcome! Feel free to ask about the artists or exhibits.",
+    ],
+
+    "Going on a Hiking Adventure": [
+      "🥾 You’re preparing for a hike. I’m your guide.\nLet’s talk about the route and safety.",
+      "Welcome! I’ll help you plan a safe and enjoyable hike.",
+    ],
+
+    "Attending a Concert": [
+      "🎶 You’re attending a live concert. I’m part of the event staff.\nMay I check your ticket?",
+      "Welcome! Let me help you find your seat.",
+    ],
+
+    // Romantic roleplays
+    "Starlit Evening Date": [
+      "✨ You’re spending a quiet evening together under the stars.\nI’m right here with you—what are you thinking about?",
+      "The night feels calm and intimate. You look at me and smile—what do you say?",
+    ],
+
+    "Romantic Café Encounter": [
+      "❤️ You’re sitting across from me at a cozy café.\nThe moment feels warm—start the conversation.",
+      "Soft music plays as we sip our drinks. What’s on your mind?",
+    ],
+
+    "Sunset Beach Walk": [
+      "🌅 We’re walking together along the beach at sunset.\nThe waves are gentle—how do you feel right now?",
+      "The sky turns orange and pink. You slow your steps—what do you say?",
+    ],
+  };
+
+  const messages = intros[scenario];
+
+  if (messages?.length) {
+    return messages[Math.floor(Math.random() * messages.length)];
+  }
+
+  // Smart fallback
+  return (
+    "🎭 You’re entering a roleplay scenario.\n" +
+    "I’ll play the appropriate role, and you speak naturally.\n\n" +
+    "Go ahead and begin."
   );
 }

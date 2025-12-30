@@ -25,6 +25,7 @@ const translateLanguage = async (req: Request, res: Response) => {
     const { aiMessage } = req.body;
     const id = req.query.chatId;
 
+    // Validate input
     const userDetails = req.user as User & { _id: string };
     const conversation = await conversationModel.findById(id);
 

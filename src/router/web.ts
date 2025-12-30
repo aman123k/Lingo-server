@@ -24,6 +24,7 @@ import characterService from "../controller/characters/characterService";
 import allDebates from "../controller/debates/allDebates";
 import allRoleplays from "../controller/roleplays/allRoleplays";
 import debateService from "../controller/debates/debatesService";
+import roleplayService from "../controller/roleplays/roleplaysService";
 
 const router: Router = express.Router();
 
@@ -49,8 +50,25 @@ router.post(
 );
 router.post("/api/logoutUser", verifyTokenMiddleware, logoutUser);
 router.post("/api/updateUserInfo", verifyTokenMiddleware, updateUser);
-router.post("/api/characterService", verifyTokenMiddleware, characterService);
-router.post("/api/debateService", verifyTokenMiddleware, debateService);
+// Character, Debate, Roleplay Services with Rate Limiting
+router.post(
+  "/api/characterService",
+  verifyTokenMiddleware,
+  chatLimiter,
+  characterService
+);
+router.post(
+  "/api/debateService",
+  verifyTokenMiddleware,
+  chatLimiter,
+  debateService
+);
+router.post(
+  "/api/roleplayService",
+  verifyTokenMiddleware,
+  chatLimiter,
+  roleplayService
+);
 
 // GET REQUEST
 router.get("/api/userInformation", verifyTokenMiddleware, getUserInfo);

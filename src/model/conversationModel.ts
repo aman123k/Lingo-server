@@ -15,7 +15,7 @@ interface Conversation {
   characterName?: string;
   characterId: mongoose.Types.ObjectId;
   // Roleplay mode fields
-  roleName?: string;
+  roleplayId: mongoose.Types.ObjectId;
   scenario?: string;
   // Debate mode fields
   topic?: string;
@@ -42,8 +42,7 @@ const conversationSchema = new Schema<conversationDocument>({
   characterId: { type: Schema.Types.ObjectId, ref: "character" },
   topic: { type: String, trim: true },
   debateId: { type: Schema.Types.ObjectId, ref: "debate" },
-
-  roleName: { type: String, trim: true },
+  roleplayId: { type: Schema.Types.ObjectId, ref: "roleplay" },
   scenario: { type: String, trim: true },
 });
 

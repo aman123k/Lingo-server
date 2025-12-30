@@ -45,7 +45,9 @@ const chatService = async (req: Request, res: Response) => {
       });
     }
 
-    const timestamp = new Date();
+    // Use slightly different timestamps for user and model messages
+    const userTimestamp = new Date();
+    const modelTimestamp = new Date(userTimestamp.getTime() + 50); // 50ms later
 
     // Save both messages in parallel
     const [userMsg, modelMsg] = await Promise.all([
@@ -53,14 +55,14 @@ const chatService = async (req: Request, res: Response) => {
         role: "user",
         conversationMode: "chat",
         content: incomingUserMessage.content,
-        timestamp,
+        timestamp: userTimestamp,
         userId: userDetails._id,
       }),
       conversationModel.create({
         role: "model",
         conversationMode: "chat",
         content: terseReply,
-        timestamp,
+        timestamp: modelTimestamp,
         userId: userDetails._id,
       }),
     ]);
