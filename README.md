@@ -106,8 +106,7 @@ Before you begin, ensure you have the following installed:
 1. **Clone the repository** (if not already done)
 
    ```bash
-   git clone <repository-url>
-   cd EnglishTutor/server
+   git clone https://github.com/aman123k/Lingo-server.git
    ```
 
 2. **Install dependencies**
