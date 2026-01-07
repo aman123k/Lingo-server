@@ -25,6 +25,7 @@ import allDebates from "../controller/debates/allDebates";
 import allRoleplays from "../controller/roleplays/allRoleplays";
 import debateService from "../controller/debates/debatesService";
 import roleplayService from "../controller/roleplays/roleplaysService";
+import getFeedback from "../controller/feedback/getFeedback";
 
 const router: Router = express.Router();
 
@@ -68,6 +69,13 @@ router.post(
   verifyTokenMiddleware,
   chatLimiter,
   roleplayService
+);
+
+router.post(
+  "/api/get-feedback",
+  verifyTokenMiddleware,
+  chatLimiter,
+  getFeedback
 );
 
 // GET REQUEST

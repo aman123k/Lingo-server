@@ -20,6 +20,8 @@ interface Conversation {
   // Debate mode fields
   topic?: string;
   debateId: mongoose.Types.ObjectId;
+  feedback?: string;
+  correction?: string;
 }
 
 interface conversationDocument extends Conversation, Document {}
@@ -44,6 +46,8 @@ const conversationSchema = new Schema<conversationDocument>({
   debateId: { type: Schema.Types.ObjectId, ref: "debate" },
   roleplayId: { type: Schema.Types.ObjectId, ref: "roleplay" },
   scenario: { type: String, trim: true },
+  feedback: { type: String, trim: true },
+  correction: { type: String, trim: true },
 });
 
 const conversationModel = model<conversationDocument>(
