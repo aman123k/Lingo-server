@@ -27,6 +27,7 @@ export const ERROR_MESSAGES = {
   LOGOUT_ERROR: "Failed to logout user",
   DELETE_USER_ERROR: "Failed to delete user",
   UPDATE_USER_ERROR: "Failed to delete user",
+  CONVERSATION_NOT_FOUND: "Conversation not found",
 };
 
 export const SUCCESS_MESSAGES = {
@@ -46,4 +47,7 @@ export const SUCCESS_MESSAGES = {
   CHARACTERS_RETRIEVED: "Characters retrieved successfully",
   DEBATES_RETRIEVED: "Debates retrieved successfully",
   ROLEPLAYS_RETRIEVED: "Roleplays retrieved successfully",
+  TRANSLATION_COMPLETED: "Translation completed successfully.",
+  FEEDBACK_AND_CORRECTION_SUCCESS:
+    "Feedback and correction generated successfully",
 };

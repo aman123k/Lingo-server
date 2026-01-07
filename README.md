@@ -45,6 +45,12 @@ A Node.js/Express.js backend server for an AI-powered English learning platform.
   - Real-time text translation
   - Supports multiple target languages
 
+- **Grammar Feedback & Correction**
+
+  - AI-powered grammar correction and feedback
+  - Detailed explanations for grammar mistakes
+  - Personalized learning suggestions
+
 - **Character Conversations**
 
   - Role-play with famous personalities and historical figures (Shiva, Einstein, etc.)
@@ -187,6 +193,8 @@ server/
 │   │   ├── debates/
 │   │   │   ├── allDebates.ts
 │   │   │   └── debatesService.ts
+│   │   ├── feedback/
+│   │   │   └── getFeedback.ts
 │   │   ├── otp/
 │   │   │   ├── otpTemplate.ts
 │   │   │   ├── sentOtp.ts
@@ -265,17 +273,18 @@ server/
 
 ### Chat & Translation
 
-| Method | Endpoint                | Description                      | Auth Required |
-| ------ | ----------------------- | -------------------------------- | ------------- |
-| POST   | `/api/chatService`      | Send message to AI tutor         | Yes           |
-| POST   | `/api/characterService` | Chat with AI characters          | Yes           |
-| POST   | `/api/debateService`    | Participate in AI debates        | Yes           |
-| POST   | `/api/roleplayService`  | Practice roleplay scenarios      | Yes           |
-| GET    | `/api/chatHistory`      | Get conversation history         | Yes           |
-| GET    | `/api/allCharacter`     | Get available characters         | Yes           |
-| GET    | `/api/allDebates`       | Get available debate topics      | Yes           |
-| GET    | `/api/allRoleplays`     | Get available roleplay scenarios | Yes           |
-| POST   | `/api/translate`        | Translate text                   | Yes           |
+| Method | Endpoint                | Description                       | Auth Required |
+| ------ | ----------------------- | --------------------------------- | ------------- |
+| POST   | `/api/chatService`      | Send message to AI tutor          | Yes           |
+| POST   | `/api/characterService` | Chat with AI characters           | Yes           |
+| POST   | `/api/debateService`    | Participate in AI debates         | Yes           |
+| POST   | `/api/roleplayService`  | Practice roleplay scenarios       | Yes           |
+| GET    | `/api/chatHistory`      | Get conversation history          | Yes           |
+| GET    | `/api/allCharacter`     | Get available characters          | Yes           |
+| GET    | `/api/allDebates`       | Get available debate topics       | Yes           |
+| GET    | `/api/allRoleplays`     | Get available roleplay scenarios  | Yes           |
+| POST   | `/api/translate`        | Translate text                    | Yes           |
+| POST   | `/api/get-feedback`     | Get grammar feedback & correction | Yes           |
 
 ### Session & Account
 
@@ -384,6 +393,8 @@ Stores chat conversations:
 - Timestamps
 - User association
 - Mode-specific metadata (character names, debate topics, etc.)
+- Grammar feedback and corrections for language learning
+- Translation content for multilingual support
 
 #### Character Model
 

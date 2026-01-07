@@ -19,6 +19,7 @@ import { User } from "../../model/userModel";
 import { conversationModel } from "../../model/conversationModel";
 import { translationPrompt } from "../../lib/prompts/generateTranslate";
 import { generateTranslateContents } from "../../lib/ai/genaiTranslate";
+import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../../constants/messages";
 
 const translateLanguage = async (req: Request, res: Response) => {
   try {
@@ -32,7 +33,7 @@ const translateLanguage = async (req: Request, res: Response) => {
     if (!conversation) {
       return res.status(404).json({
         status: false,
-        message: "Conversation not found",
+        message: ERROR_MESSAGES?.CONVERSATION_NOT_FOUND,
       });
     }
 
@@ -51,14 +52,14 @@ const translateLanguage = async (req: Request, res: Response) => {
 
     res.status(200).json({
       status: true,
-      message: "Translation successful",
+      message: SUCCESS_MESSAGES?.TRANSLATION_COMPLETED,
       data: translatedText,
     });
   } catch (err) {
     console.log(err);
     res.status(500).json({
       status: false,
-      message: "Internal Server Error",
+      message: ERROR_MESSAGES?.INTERNAL_SERVER_ERROR,
     });
   }
 };
