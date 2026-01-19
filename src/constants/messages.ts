@@ -28,6 +28,9 @@ export const ERROR_MESSAGES = {
   DELETE_USER_ERROR: "Failed to delete user",
   UPDATE_USER_ERROR: "Failed to delete user",
   CONVERSATION_NOT_FOUND: "Conversation not found",
+  CONTACT_REQUEST_ERROR: "Failed to submit support request. Please try again.",
+  CONTACT_REQUEST_MISSING_FIELDS:
+    "Subject and problem description are required.",
 };
 
 export const SUCCESS_MESSAGES = {
@@ -50,4 +53,6 @@ export const SUCCESS_MESSAGES = {
   TRANSLATION_COMPLETED: "Translation completed successfully.",
   FEEDBACK_AND_CORRECTION_SUCCESS:
     "Feedback and correction generated successfully",
+  CONTACT_REQUEST_SUCCESS:
+    "Support request submitted successfully. We'll get back to you soon!",
 };

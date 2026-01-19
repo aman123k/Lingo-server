@@ -26,6 +26,7 @@ import allRoleplays from "../controller/roleplays/allRoleplays";
 import debateService from "../controller/debates/debatesService";
 import roleplayService from "../controller/roleplays/roleplaysService";
 import getFeedback from "../controller/feedback/getFeedback";
+import contact from "../controller/support/contact";
 
 const router: Router = express.Router();
 
@@ -77,6 +78,8 @@ router.post(
   chatLimiter,
   getFeedback
 );
+
+router.post("/api/addSupport", verifyTokenMiddleware, contact);
 
 // GET REQUEST
 router.get("/api/userInformation", verifyTokenMiddleware, getUserInfo);
