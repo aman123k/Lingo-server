@@ -74,6 +74,19 @@ A Node.js/Express.js backend server for an AI-powered English learning platform.
   - OTP-based password recovery via email
   - Secure OTP verification
 
+- **User Progress Analytics**
+
+  - Multi-dimensional learning statistics aggregation
+  - Weekly learning duration metrics and activity charts
+  - Global XP tracking and active streak computations
+  - Dynamic accuracy meter and grammar review notebook aggregating user errors
+
+- **Multi-Session Chat History Management**
+
+  - Session-based conversation scoping and storage
+  - Starting fresh sessions without deleting history
+  - Browsing archive session catalogs and deleting individual chat sessions
+
 - **Security Features**
 
   - Rate limiting for API endpoints
@@ -189,7 +202,9 @@ server/
 │   │   │   └── characterService.ts
 │   │   ├── chats/
 │   │   │   ├── chatHistory.ts
-│   │   │   └── chatService.ts
+│   │   │   ├── chatService.ts
+│   │   │   ├── clearChat.ts
+│   │   │   └── getChatSessions.ts
 │   │   ├── debates/
 │   │   │   ├── allDebates.ts
 │   │   │   └── debatesService.ts
@@ -199,6 +214,8 @@ server/
 │   │   │   ├── otpTemplate.ts
 │   │   │   ├── sentOtp.ts
 │   │   │   └── verifyOtp.ts
+│   │   ├── progress/
+│   │   │   └── getProgress.ts
 │   │   ├── roleplays/
 │   │   │   ├── allRoleplays.ts
 │   │   │   └── roleplaysService.ts
@@ -280,18 +297,26 @@ server/
 | POST   | `/api/debateService`    | Participate in AI debates         | Yes           |
 | POST   | `/api/roleplayService`  | Practice roleplay scenarios       | Yes           |
 | GET    | `/api/chatHistory`      | Get conversation history          | Yes           |
+| GET    | `/api/chatSessions`     | Get all conversation sessions     | Yes           |
 | GET    | `/api/allCharacter`     | Get available characters          | Yes           |
 | GET    | `/api/allDebates`       | Get available debate topics       | Yes           |
 | GET    | `/api/allRoleplays`     | Get available roleplay scenarios  | Yes           |
 | POST   | `/api/translate`        | Translate text                    | Yes           |
 | POST   | `/api/get-feedback`     | Get grammar feedback & correction | Yes           |
 
+### Progress & Analytics
+
+| Method | Endpoint             | Description                                                  | Auth Required |
+| ------ | -------------------- | ------------------------------------------------------------ | ------------- |
+| GET    | `/api/userProgress`  | Get aggregated user progress statistics, streak, XP, weekly activity, and review mistakes | Yes           |
+
 ### Session & Account
 
-| Method | Endpoint          | Description         | Auth Required |
-| ------ | ----------------- | ------------------- | ------------- |
-| POST   | `/api/logoutUser` | Logout current user | Yes           |
-| DELETE | `/api/deleteUser` | Delete user account | Yes           |
+| Method | Endpoint          | Description                                                 | Auth Required |
+| ------ | ----------------- | ----------------------------------------------------------- | ------------- |
+| POST   | `/api/logoutUser` | Logout current user                                         | Yes           |
+| DELETE | `/api/deleteUser` | Delete user account                                         | Yes           |
+| DELETE | `/api/clearChat`  | Clear specific conversation session (or legacy messages)   | Yes           |
 
 ### Password Reset
 
@@ -395,6 +420,7 @@ Stores chat conversations:
 - Mode-specific metadata (character names, debate topics, etc.)
 - Grammar feedback and corrections for language learning
 - Translation content for multilingual support
+- `chatSessionId` (String, indexed) for categorizing and grouping conversations into separate sessions
 
 #### Character Model
 
