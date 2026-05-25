@@ -13,7 +13,7 @@ import { Roleplay, roleplayModel } from "../../model/roleplayModel";
 
 const roleplayService = async (req: Request, res: Response) => {
   try {
-    const { messages } = req.body as { messages: AIMsg[] };
+    const { messages, chatSessionId } = req.body as { messages: AIMsg[]; chatSessionId?: string };
     const roleplayId = req.query.roleplayId as string;
     const userDetails = req.user as User & { _id: string };
 
@@ -29,6 +29,7 @@ const roleplayService = async (req: Request, res: Response) => {
     const oldConversations =
       (await getLastConversations(userDetails._id, "roleplay", {
         roleplayId,
+        chatSessionId,
       })) || [];
 
     // Fetch character
@@ -75,6 +76,7 @@ const roleplayService = async (req: Request, res: Response) => {
         userId: userDetails._id,
         roleplayId,
         scenario: currentRoleplay.name,
+        chatSessionId,
       }),
       conversationModel.create({
         role: "model",
@@ -84,6 +86,7 @@ const roleplayService = async (req: Request, res: Response) => {
         userId: userDetails._id,
         roleplayId,
         scenario: currentRoleplay?.name,
+        chatSessionId,
       }),
     ]);
 

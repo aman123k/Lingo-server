@@ -21,10 +21,16 @@ const chatHistory = async (req: Request, res: Response) => {
       "debate",
     ];
 
+    // Handle array case if mode parameter is passed twice
+    let modeParam = query.mode;
+    if (Array.isArray(modeParam)) {
+      modeParam = modeParam[0];
+    }
+
     const conversationMode: ConversationMode = validModes.includes(
-      (query.mode as ConversationMode) || ""
+      (modeParam as ConversationMode) || ""
     )
-      ? (query.mode as ConversationMode)
+      ? (modeParam as ConversationMode)
       : "chat";
 
     // Pagination
@@ -41,11 +47,50 @@ const chatHistory = async (req: Request, res: Response) => {
       }
     };
 
-    // Build dynamic filter
+    // Resolve or find the active chat session ID
+    let chatSessionId = query.sessionId as string;
+    
+    // Match optional fields to check scoped sessions
+    const sessionMatchFilter: any = {
+      userId: new mongoose.Types.ObjectId(userDetails._id),
+      conversationMode,
+    };
+    if (query.characterId) {
+      const idObj = toObjectId(query.characterId as string);
+      if (idObj) sessionMatchFilter.characterId = idObj;
+    }
+    if (query.debateId) {
+      const idObj = toObjectId(query.debateId as string);
+      if (idObj) sessionMatchFilter.debateId = idObj;
+    }
+    if (query.roleplayId) {
+      const idObj = toObjectId(query.roleplayId as string);
+      if (idObj) sessionMatchFilter.roleplayId = idObj;
+    }
+
+    if (!chatSessionId || chatSessionId === "undefined" || chatSessionId === "null") {
+      const latestMsg = await conversationModel
+        .findOne(sessionMatchFilter)
+        .sort({ timestamp: -1 });
+      chatSessionId = latestMsg?.chatSessionId || new mongoose.Types.ObjectId().toString();
+    }
+
+    // Build dynamic filter with session ID
     const filter: any = {
       userId: new mongoose.Types.ObjectId(userDetails._id),
       conversationMode,
     };
+
+    if (chatSessionId === "default") {
+      filter.$or = [
+        { chatSessionId: "default" },
+        { chatSessionId: { $exists: false } },
+        { chatSessionId: null },
+        { chatSessionId: "" }
+      ];
+    } else {
+      filter.chatSessionId = chatSessionId;
+    }
 
     const optionalFields = [
       "characterId",
@@ -88,6 +133,7 @@ const chatHistory = async (req: Request, res: Response) => {
         role: "model",
         conversationMode,
         content: WELCOME_TEMPLATES[conversationMode](query),
+        chatSessionId,
       };
       console.log(WELCOME_TEMPLATES[conversationMode](query));
       // Add optional fields dynamically
@@ -102,6 +148,7 @@ const chatHistory = async (req: Request, res: Response) => {
         status: true,
         message: SUCCESS_MESSAGES.INITIALBOTMESSAGE,
         data: [initialMessage],
+        chatSessionId,
       });
     }
     // Return messages (oldest first)
@@ -112,6 +159,7 @@ const chatHistory = async (req: Request, res: Response) => {
       message: SUCCESS_MESSAGES.OLDER_MESSAGE,
       data: messages,
       total,
+      chatSessionId,
     });
   } catch (error) {
     console.log(ERROR_MESSAGES?.CHAT_HISTORY_ERROR, error);

@@ -11,15 +11,27 @@ export type AIMsg = { role: AIMsgRole; content: string };
 export const getLastConversations = async (
   userId: string,
   mode: string,
-  extraFilter: Record<string, unknown> = {}
+  extraFilter: Record<string, any> = {}
 ) => {
-  const baseFilter = {
+  const baseFilter: any = {
     userId,
     conversationMode: mode,
   };
 
+  const queryFilter: any = { ...extraFilter };
+
+  if (queryFilter.chatSessionId === "default") {
+    delete queryFilter.chatSessionId;
+    baseFilter.$or = [
+      { chatSessionId: "default" },
+      { chatSessionId: { $exists: false } },
+      { chatSessionId: null },
+      { chatSessionId: "" }
+    ];
+  }
+
   const conversations = await conversationModel
-    .find({ ...extraFilter, ...baseFilter })
+    .find({ ...queryFilter, ...baseFilter })
     .sort({ timestamp: -1 })
     .limit(50)
     .lean();

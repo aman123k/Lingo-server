@@ -13,7 +13,7 @@ import { Debate, debateModel } from "../../model/debateModel";
 
 const debateService = async (req: Request, res: Response) => {
   try {
-    const { messages } = req.body as { messages: AIMsg[] };
+    const { messages, chatSessionId } = req.body as { messages: AIMsg[]; chatSessionId?: string };
     const debateId = req.query.debateId as string;
     const userDetails = req.user as User & { _id: string };
 
@@ -29,6 +29,7 @@ const debateService = async (req: Request, res: Response) => {
     const oldConversations =
       (await getLastConversations(userDetails._id, "debate", {
         debateId,
+        chatSessionId,
       })) || [];
 
     // Fetch character
@@ -75,6 +76,7 @@ const debateService = async (req: Request, res: Response) => {
         userId: userDetails._id,
         debateId,
         topic: currentDebate.name,
+        chatSessionId,
       }),
       conversationModel.create({
         role: "model",
@@ -84,6 +86,7 @@ const debateService = async (req: Request, res: Response) => {
         userId: userDetails._id,
         debateId,
         topic: currentDebate?.name,
+        chatSessionId,
       }),
     ]);
 

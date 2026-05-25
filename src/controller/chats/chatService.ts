@@ -13,12 +13,12 @@ import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../../constants/messages";
 
 const chatService = async (req: Request, res: Response) => {
   try {
-    const { messages } = req.body;
+    const { messages, chatSessionId } = req.body;
     const userDetails = req.user as User & { _id: string };
 
     // Fetch Previous Conversations
     const oldConversations =
-      (await getLastConversations(userDetails._id, "chat")) || [];
+      (await getLastConversations(userDetails._id, "chat", { chatSessionId })) || [];
 
     // Generate Basic Prompts with User Information
     const systemInstruction = userInformationPrompt(userDetails);
@@ -57,6 +57,7 @@ const chatService = async (req: Request, res: Response) => {
         content: incomingUserMessage.content,
         timestamp: userTimestamp,
         userId: userDetails._id,
+        chatSessionId,
       }),
       conversationModel.create({
         role: "model",
@@ -64,6 +65,7 @@ const chatService = async (req: Request, res: Response) => {
         content: terseReply,
         timestamp: modelTimestamp,
         userId: userDetails._id,
+        chatSessionId,
       }),
     ]);
 

@@ -22,6 +22,7 @@ interface Conversation {
   debateId: mongoose.Types.ObjectId;
   feedback?: string;
   correction?: string;
+  chatSessionId?: string;
 }
 
 interface conversationDocument extends Conversation, Document {}
@@ -48,6 +49,7 @@ const conversationSchema = new Schema<conversationDocument>({
   scenario: { type: String, trim: true },
   feedback: { type: String, trim: true },
   correction: { type: String, trim: true },
+  chatSessionId: { type: String, trim: true, index: true },
 });
 
 const conversationModel = model<conversationDocument>(

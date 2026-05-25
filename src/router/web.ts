@@ -28,6 +28,8 @@ import roleplayService from "../controller/roleplays/roleplaysService";
 import getFeedback from "../controller/feedback/getFeedback";
 import contact from "../controller/support/contact";
 import getProgress from "../controller/progress/getProgress";
+import clearChat from "../controller/chats/clearChat";
+import getChatSessions from "../controller/chats/getChatSessions";
 
 const router: Router = express.Router();
 
@@ -89,8 +91,10 @@ router.get("/api/allCharacter", verifyTokenMiddleware, allCharacters);
 router.get("/api/allDebates", verifyTokenMiddleware, allDebates);
 router.get("/api/allRoleplays", verifyTokenMiddleware, allRoleplays);
 router.get("/api/userProgress", verifyTokenMiddleware, getProgress);
+router.get("/api/chatSessions", verifyTokenMiddleware, getChatSessions);
 
 // DELETE REQUEST
 router.delete("/api/deleteUser", verifyTokenMiddleware, deleteUser);
+router.delete("/api/clearChat", verifyTokenMiddleware, clearChat);
 
 export default router;

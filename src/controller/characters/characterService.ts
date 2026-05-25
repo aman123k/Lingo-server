@@ -13,7 +13,7 @@ import { characterPrompt } from "../../lib/prompts/characterPrompt";
 
 const characterService = async (req: Request, res: Response) => {
   try {
-    const { messages } = req.body;
+    const { messages, chatSessionId } = req.body;
     const characterId = req.query.characterId as string;
     const userDetails = req.user as User & { _id: string };
 
@@ -41,6 +41,7 @@ const characterService = async (req: Request, res: Response) => {
     const oldConversations =
       (await getLastConversations(userDetails._id, "character", {
         characterName: currentCharacter.name,
+        chatSessionId,
       })) || [];
 
     // Generate Basic Prompts with Character + User Information
@@ -82,6 +83,7 @@ const characterService = async (req: Request, res: Response) => {
         userId: userDetails._id,
         characterName: currentCharacter.name,
         characterId: currentCharacter._id,
+        chatSessionId,
       }),
       conversationModel.create({
         role: "model",
@@ -91,6 +93,7 @@ const characterService = async (req: Request, res: Response) => {
         userId: userDetails._id,
         characterName: currentCharacter.name,
         characterId: currentCharacter._id,
+        chatSessionId,
       }),
     ]);
 
