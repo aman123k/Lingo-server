@@ -3,15 +3,32 @@ import { conversationModel } from "../../model/conversationModel";
 import { generateTranslateContents } from "../../lib/ai/genaiTranslate";
 import { feedbackPrompt } from "../../lib/prompts/feedbackPrompt";
 import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../../constants/messages";
+import mongoose from "mongoose";
+import { User } from "../../model/userModel";
 
 const getFeedback = async (req: Request, res: Response) => {
   try {
     // Extract original message and conversation ID from request
     const { originalMessage } = req.body;
     const id = req.query.chatId;
+    const userDetails = req.user as User & { _id: string };
 
-    // Find the conversation document in database
-    const conversation = await conversationModel.findById(id);
+    // Find the conversation document in database safely
+    let conversation;
+    if (id && mongoose.Types.ObjectId.isValid(id as string)) {
+      conversation = await conversationModel.findById(id);
+    }
+
+    if (!conversation && originalMessage) {
+      // Fallback: search by content, userId, sorted by most recent
+      conversation = await conversationModel
+        .findOne({
+          userId: new mongoose.Types.ObjectId(userDetails._id),
+          content: originalMessage,
+        })
+        .sort({ timestamp: -1 });
+    }
+
     if (!conversation) {
       return res.status(404).json({
         status: false,
