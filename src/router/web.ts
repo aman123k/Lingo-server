@@ -30,6 +30,7 @@ import contact from "../controller/support/contact";
 import getProgress from "../controller/progress/getProgress";
 import clearChat from "../controller/chats/clearChat";
 import getChatSessions from "../controller/chats/getChatSessions";
+import learningModeService from "../controller/chats/learningModeService";
 
 const router: Router = express.Router();
 
@@ -73,6 +74,12 @@ router.post(
   verifyTokenMiddleware,
   chatLimiter,
   roleplayService
+);
+router.post(
+  "/api/learningModeService",
+  verifyTokenMiddleware,
+  chatLimiter,
+  learningModeService
 );
 
 router.post(

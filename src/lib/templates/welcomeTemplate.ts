@@ -13,6 +13,15 @@ export const WELCOME_TEMPLATES: Record<
   roleplay: (p) => getRoleplayWelcomeMessage(p.scenario),
 
   debate: (p) => getDebateWelcomeMessage(p.topic),
+
+  business: () =>
+    "Welcome to your Business English Coaching session! 💼 I'm Jennifer, your workplace language coach. Let's practice business writing, email drafting, or interview preparation. What scenario would you like to practice today?",
+
+  vocab: () =>
+    "Welcome to the Vocabulary Arena! 🏆 I'm Jennifer, your game referee. Let's play a word-guessing game (like Taboo) to expand your vocabulary! Type 'start' whenever you're ready for me to describe the first word, or ask me for the rules.",
+
+  story: () =>
+    "Welcome to Story Co-creation! 📚 I'm Jennifer, your storytelling partner. We will build a story together sentence by sentence. I'll write the first sentence, check your contributions for any grammar or vocab improvements, and continue the plot. Ready to begin?",
 };
 
 // Generate character-specific welcome message

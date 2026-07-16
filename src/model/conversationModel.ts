@@ -1,7 +1,7 @@
 import mongoose, { Document, model, Schema } from "mongoose";
 
 // Define conversation modes
-export type ConversationMode = "chat" | "character" | "roleplay" | "debate";
+export type ConversationMode = "chat" | "character" | "roleplay" | "debate" | "business" | "vocab" | "story";
 
 // Define conversation fields here as needed
 interface Conversation {
@@ -33,7 +33,7 @@ const conversationSchema = new Schema<conversationDocument>({
     type: String,
     required: true,
     trim: true,
-    enum: ["chat", "character", "roleplay", "debate"],
+    enum: ["chat", "character", "roleplay", "debate", "business", "vocab", "story"],
     default: "chat",
   },
   content: { type: String, required: true, trim: true },

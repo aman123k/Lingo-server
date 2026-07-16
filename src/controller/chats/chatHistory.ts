@@ -19,6 +19,9 @@ const chatHistory = async (req: Request, res: Response) => {
       "character",
       "roleplay",
       "debate",
+      "business",
+      "vocab",
+      "story",
     ];
 
     // Handle array case if mode parameter is passed twice
