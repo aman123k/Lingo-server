@@ -22,6 +22,7 @@ const chatHistory = async (req: Request, res: Response) => {
       "business",
       "vocab",
       "story",
+      "travel",
     ];
 
     // Handle array case if mode parameter is passed twice
@@ -58,18 +59,13 @@ const chatHistory = async (req: Request, res: Response) => {
       userId: new mongoose.Types.ObjectId(userDetails._id),
       conversationMode,
     };
-    if (query.characterId) {
-      const idObj = toObjectId(query.characterId as string);
-      if (idObj) sessionMatchFilter.characterId = idObj;
-    }
-    if (query.debateId) {
-      const idObj = toObjectId(query.debateId as string);
-      if (idObj) sessionMatchFilter.debateId = idObj;
-    }
-    if (query.roleplayId) {
-      const idObj = toObjectId(query.roleplayId as string);
-      if (idObj) sessionMatchFilter.roleplayId = idObj;
-    }
+    const idFields = ["characterId", "debateId", "roleplayId", "travelId"] as const;
+    idFields.forEach((field) => {
+      if (query[field]) {
+        const idObj = toObjectId(query[field] as string);
+        if (idObj) sessionMatchFilter[field] = idObj;
+      }
+    });
 
     if (!chatSessionId || chatSessionId === "undefined" || chatSessionId === "null") {
       const latestMsg = await conversationModel
@@ -102,15 +98,14 @@ const chatHistory = async (req: Request, res: Response) => {
       "topic",
       "scenario",
       "roleplayId",
+      "travelId",
     ] as const;
+
+    const idFieldsList = ["characterId", "debateId", "roleplayId", "travelId"];
 
     optionalFields.forEach((field) => {
       if (query[field]) {
-        if (
-          field === "characterId" ||
-          field === "debateId" ||
-          field === "roleplayId"
-        ) {
+        if (idFieldsList.includes(field)) {
           const idObj = toObjectId(query[field] as string);
           if (idObj) filter[field] = idObj;
         } else {

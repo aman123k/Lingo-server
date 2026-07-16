@@ -23,8 +23,10 @@ import allCharacters from "../controller/characters/allCharacters";
 import characterService from "../controller/characters/characterService";
 import allDebates from "../controller/debates/allDebates";
 import allRoleplays from "../controller/roleplays/allRoleplays";
+import allTravels from "../controller/travels/allTravels";
 import debateService from "../controller/debates/debatesService";
 import roleplayService from "../controller/roleplays/roleplaysService";
+import travelsService from "../controller/travels/travelsService";
 import getFeedback from "../controller/feedback/getFeedback";
 import contact from "../controller/support/contact";
 import getProgress from "../controller/progress/getProgress";
@@ -76,6 +78,12 @@ router.post(
   roleplayService
 );
 router.post(
+  "/api/travelsService",
+  verifyTokenMiddleware,
+  chatLimiter,
+  travelsService
+);
+router.post(
   "/api/learningModeService",
   verifyTokenMiddleware,
   chatLimiter,
@@ -97,6 +105,7 @@ router.get("/api/chatHistory", verifyTokenMiddleware, chatHistory);
 router.get("/api/allCharacter", verifyTokenMiddleware, allCharacters);
 router.get("/api/allDebates", verifyTokenMiddleware, allDebates);
 router.get("/api/allRoleplays", verifyTokenMiddleware, allRoleplays);
+router.get("/api/allTravels", verifyTokenMiddleware, allTravels);
 router.get("/api/userProgress", verifyTokenMiddleware, getProgress);
 router.get("/api/chatSessions", verifyTokenMiddleware, getChatSessions);
 

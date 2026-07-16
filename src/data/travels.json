@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Caught on a Deserted Island",
+    "description": "You are stranded on a tiny tropical island with a single palm tree. Jennifer is your survival companion. Practice discussing search signals, finding fresh water, and building a shelter.",
+    "imageUrl": "/Images/deserted-island.webp",
+    "perspective": "Survival"
+  },
+  {
+    "name": "Stuck in the Middle of the Sea",
+    "description": "You are lost in a small rowboat in a vast, calm ocean at sunset. Jennifer is your fellow passenger. Discuss food rationing, navigating by stars, and keeping hopes high.",
+    "imageUrl": "/Images/middle-sea.webp",
+    "perspective": "Survival"
+  },
+  {
+    "name": "Stuck in the Safari Jungle",
+    "description": "Your vintage jeep is stuck in deep mud on a safari trail surrounded by wild foliage. Jennifer is the safari guide. Decide how to get the vehicle out and handle potential wild animals.",
+    "imageUrl": "/Images/safari-jungle.webp",
+    "perspective": "Survival"
+  },
+  {
+    "name": "Lost in a Foreign City",
+    "description": "You are carrying a heavy backpack, holding a map, and completely lost in a historic European city square. Jennifer is a friendly local. Practice asking for directions and local tips.",
+    "imageUrl": "/Images/lost-city.webp",
+    "perspective": "Travel"
+  },
+  {
+    "name": "Lost Passport in Paris",
+    "description": "Stranded in France without identification. Jennifer is your guide. Discuss reporting the loss, translating at police stations, and visiting the embassy.",
+    "imageUrl": "/Images/character.webp",
+    "perspective": "Travel"
+  },
+  {
+    "name": "Missing a Flight in London",
+    "description": "Stranded at Heathrow airport after missing your connection. Jennifer is the airport agent. Practice rebooking and arranging vouchers.",
+    "imageUrl": "/Images/roleplay.webp",
+    "perspective": "Travel"
+  },
+  {
+    "name": "Food Poisoning in Bangkok",
+    "description": "Stranded in a hotel room feeling very ill. Jennifer is the hotel helper. Practice describing symptoms and getting medical assistance.",
+    "imageUrl": "/Images/vocab-arena.webp",
+    "perspective": "Travel"
+  },
+  {
+    "name": "Stolen Wallet in Rome",
+    "description": "Your wallet was stolen by pickpockets near the Colosseum. Jennifer is a helpful officer. Discuss cancelling cards and filing a report.",
+    "imageUrl": "/Images/debate.webp",
+    "perspective": "Travel"
+  },
+  {
+    "name": "Car Breakdown in Death Valley",
+    "description": "Your car broke down in a hot desert with no cellular signal. Jennifer is your passenger. Practice checking supplies and planning.",
+    "imageUrl": "/Images/role-play.webp",
+    "perspective": "Survival"
+  },
+  {
+    "name": "Blizzard Lock-in in Swiss Alps",
+    "description": "Stuck in a mountain cabin during a major snowstorm with no electricity. Jennifer is the caretaker. Discuss rationing food and firewood.",
+    "imageUrl": "/Images/characters.webp",
+    "perspective": "Survival"
+  }
+]

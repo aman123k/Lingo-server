@@ -22,6 +22,8 @@ export const WELCOME_TEMPLATES: Record<
 
   story: () =>
     "Welcome to Story Co-creation! 📚 I'm Jennifer, your storytelling partner. We will build a story together sentence by sentence. I'll write the first sentence, check your contributions for any grammar or vocab improvements, and continue the plot. Ready to begin?",
+
+  travel: (p) => getTravelWelcomeMessage(p.scenario),
 };
 
 // Generate character-specific welcome message
@@ -359,5 +361,38 @@ function getRoleplayWelcomeMessage(scenario: string) {
     "🎭 You’re entering a roleplay scenario.\n" +
     "I’ll play the appropriate role, and you speak naturally.\n\n" +
     "Go ahead and begin."
+  );
+}
+
+// Generate travel welcome message based on scenario
+function getTravelWelcomeMessage(scenario: string) {
+  const intros: Record<string, string[]> = {
+    "Caught on a Deserted Island": [
+      "🌴 Jennifer: We are stranded on a deserted tropical island! 😱 Fresh water is scarce, and we need shelter. What should we do first?",
+      "Jennifer: We are lost on this island! The sun is high. Let's think: how can we signal for help?"
+    ],
+    "Stuck in the Middle of the Sea": [
+      "🌊 Jennifer: We are lost in this small rowboat. Hopes are low, but we must stay strong. Should we try rowing towards the horizon or wait?",
+      "Jennifer: There's nothing but blue ocean around us. Let's check our supplies and make a survival plan."
+    ],
+    "Stuck in the Safari Jungle": [
+      "🦁 Jennifer: The jeep is deep in the mud and the safari jungle is getting dark. We need a strategy to get out safely before wild animals arrive!",
+      "Jennifer: Our jeep is stuck! Let's work together to push it out or find help."
+    ],
+    "Lost in a Foreign City": [
+      "🗺️ Jennifer: Hello! You look a bit lost with that map and backpack. Can I help you find your hotel or recommend a good local cafe?",
+      "Jennifer: Welcome to our city! Are you trying to find the historic square? I can point you in the right direction."
+    ]
+  };
+
+  const messages = intros[scenario];
+  if (messages?.length) {
+    return messages[Math.floor(Math.random() * messages.length)];
+  }
+
+  return (
+    "🗺️ Jennifer: You are entering a travel survival scenario.\n" +
+    "Let's discuss the situation and find a way forward together!\n\n" +
+    "Whenever you are ready, speak up."
   );
 }

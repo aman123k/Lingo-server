@@ -1,7 +1,7 @@
 import mongoose, { Document, model, Schema } from "mongoose";
 
 // Define conversation modes
-export type ConversationMode = "chat" | "character" | "roleplay" | "debate" | "business" | "vocab" | "story";
+export type ConversationMode = "chat" | "character" | "roleplay" | "debate" | "business" | "vocab" | "story" | "travel";
 
 // Define conversation fields here as needed
 interface Conversation {
@@ -23,6 +23,7 @@ interface Conversation {
   feedback?: string;
   correction?: string;
   chatSessionId?: string;
+  travelId: mongoose.Types.ObjectId;
 }
 
 interface conversationDocument extends Conversation, Document {}
@@ -33,7 +34,7 @@ const conversationSchema = new Schema<conversationDocument>({
     type: String,
     required: true,
     trim: true,
-    enum: ["chat", "character", "roleplay", "debate", "business", "vocab", "story"],
+    enum: ["chat", "character", "roleplay", "debate", "business", "vocab", "story", "travel"],
     default: "chat",
   },
   content: { type: String, required: true, trim: true },
@@ -46,6 +47,7 @@ const conversationSchema = new Schema<conversationDocument>({
   topic: { type: String, trim: true },
   debateId: { type: Schema.Types.ObjectId, ref: "debate" },
   roleplayId: { type: Schema.Types.ObjectId, ref: "roleplay" },
+  travelId: { type: Schema.Types.ObjectId, ref: "travel" },
   scenario: { type: String, trim: true },
   feedback: { type: String, trim: true },
   correction: { type: String, trim: true },
