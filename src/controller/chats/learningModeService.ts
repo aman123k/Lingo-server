@@ -55,11 +55,11 @@ const learningModeService = async (req: Request, res: Response) => {
         timestamp: { $gte: startOfDay },
       });
 
-      if (todayMsgCount >= 3) {
+      if (todayMsgCount >= 20) {
         return res.status(403).json({
           status: false,
           isLimitReached: true,
-          message: `Daily Gold limit of 3 messages reached for ${mode.charAt(0).toUpperCase() + mode.slice(1)} Mode. Upgrade to Platinum for unlimited access.`,
+          message: `Daily Gold limit of 20 messages reached for ${mode.charAt(0).toUpperCase() + mode.slice(1)} Mode. Upgrade to Platinum for unlimited access.`,
         });
       }
     }
