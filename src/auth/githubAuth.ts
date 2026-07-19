@@ -88,6 +88,7 @@ const GitHubAuth = async (req: Request, res: Response) => {
       }
 
       // User exists but hasn't completed survey - update with survey data
+      // Also backfill subscriptionPlan for users created before the field was added
       const updatedUser = await userModel.findByIdAndUpdate(
         user._id,
         {
@@ -99,6 +100,7 @@ const GitHubAuth = async (req: Request, res: Response) => {
           ageGroup,
           translationLanguage,
           practiceFrequency,
+          subscriptionPlan: user.subscriptionPlan || "free",
         },
         { new: true }
       );
@@ -122,7 +124,7 @@ const GitHubAuth = async (req: Request, res: Response) => {
       });
     }
 
-    // Create new user document with Google data and survey information
+    // Create new user document with GitHub data and survey information
     const newUserDoc = new userModel({
       name: json?.name,
       email: json?.email,
@@ -135,6 +137,7 @@ const GitHubAuth = async (req: Request, res: Response) => {
       ageGroup,
       translationLanguage,
       practiceFrequency,
+      subscriptionPlan: "free",
     });
 
     // Save new user to database

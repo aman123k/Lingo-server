@@ -61,6 +61,7 @@ const googleAuth = async (req: Request, res: Response) => {
       }
 
       // User exists but hasn't completed survey - update with survey data
+      // Also backfill subscriptionPlan for users created before the field was added
       const updatedUser = await userModel.findByIdAndUpdate(
         user._id,
         {
@@ -72,6 +73,7 @@ const googleAuth = async (req: Request, res: Response) => {
           ageGroup,
           translationLanguage,
           practiceFrequency,
+          subscriptionPlan: user.subscriptionPlan || "free",
         },
         { new: true }
       );
@@ -108,6 +110,7 @@ const googleAuth = async (req: Request, res: Response) => {
       ageGroup,
       translationLanguage,
       practiceFrequency,
+      subscriptionPlan: "free",
     });
 
     // Save new user to database

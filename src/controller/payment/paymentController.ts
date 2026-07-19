@@ -7,11 +7,13 @@ import { createToken } from "../../token/jwtToken";
 import setAuthCookie from "../../lib/storeCookie";
 import client from "../../redis/redisClient";
 
-// Initialize Razorpay SDK
-const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID || "rzp_test_zXqC2NqA8fG4mQ",
-  key_secret: process.env.RAZORPAY_KEY_SECRET || "dummy_secret_key",
-});
+// Razorpay is initialized lazily inside each handler so that
+// dotenv has already populated process.env before the SDK reads the keys.
+const getRazorpay = () =>
+  new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID!,
+    key_secret: process.env.RAZORPAY_KEY_SECRET!,
+  });
 
 /**
  * Creates a Razorpay order based on selected subscription plan
@@ -41,7 +43,7 @@ export const createOrder = async (req: Request, res: Response) => {
       receipt: `receipt_${plan}_${Date.now()}`,
     };
 
-    const order = await razorpay.orders.create(options);
+    const order = await getRazorpay().orders.create(options);
 
     return res.status(200).json({
       status: true,
@@ -50,7 +52,7 @@ export const createOrder = async (req: Request, res: Response) => {
         orderId: order.id,
         amount: order.amount,
         currency: order.currency,
-        keyId: process.env.RAZORPAY_KEY_ID || "rzp_test_zXqC2NqA8fG4mQ",
+        keyId: process.env.RAZORPAY_KEY_ID,
       },
     });
   } catch (error) {
@@ -67,10 +69,16 @@ export const createOrder = async (req: Request, res: Response) => {
  */
 export const verifyPayment = async (req: Request, res: Response) => {
   try {
-    const { razorpay_order_id, razorpay_payment_id, razorpay_signature, plan } = req.body;
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature, plan } =
+      req.body;
     const userDetails = req.user as User & { _id: string };
 
-    if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature || !plan) {
+    if (
+      !razorpay_order_id ||
+      !razorpay_payment_id ||
+      !razorpay_signature ||
+      !plan
+    ) {
       return res.status(400).json({
         status: false,
         message: "Missing payment verification parameters",
@@ -101,7 +109,7 @@ export const verifyPayment = async (req: Request, res: Response) => {
     const updatedUser = await userModel.findByIdAndUpdate(
       userDetails._id,
       { subscriptionPlan: plan },
-      { new: true }
+      { new: true },
     );
 
     if (!updatedUser) {

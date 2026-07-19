@@ -1,12 +1,13 @@
-import cors from "cors";
 import { config } from "dotenv";
+config(); // Must be called before any other imports read process.env
+
+import cors from "cors";
 import cookieParser from "cookie-parser";
 import express, { Request, Response, Application } from "express";
 import compression from "compression";
 import connectDb from "./db/connectDb";
 import web from "./router/web";
 import client from "./redis/redisClient";
-config();
 
 const startServer = async () => {
   try {
