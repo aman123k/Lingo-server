@@ -26,37 +26,37 @@
   {
     "name": "Lost Passport in Paris",
     "description": "Stranded in France without identification. Jennifer is your guide. Discuss reporting the loss, translating at police stations, and visiting the embassy.",
-    "imageUrl": "/Images/character.webp",
+    "imageUrl": "/Images/lost-passport.webp",
     "perspective": "Travel"
   },
   {
     "name": "Missing a Flight in London",
     "description": "Stranded at Heathrow airport after missing your connection. Jennifer is the airport agent. Practice rebooking and arranging vouchers.",
-    "imageUrl": "/Images/roleplay.webp",
+    "imageUrl": "/Images/missed-flight.webp",
     "perspective": "Travel"
   },
   {
     "name": "Food Poisoning in Bangkok",
     "description": "Stranded in a hotel room feeling very ill. Jennifer is the hotel helper. Practice describing symptoms and getting medical assistance.",
-    "imageUrl": "/Images/vocab-arena.webp",
+    "imageUrl": "/Images/food-poisoning.webp",
     "perspective": "Travel"
   },
   {
     "name": "Stolen Wallet in Rome",
     "description": "Your wallet was stolen by pickpockets near the Colosseum. Jennifer is a helpful officer. Discuss cancelling cards and filing a report.",
-    "imageUrl": "/Images/debate.webp",
+    "imageUrl": "/Images/stolen-wallet.webp",
     "perspective": "Travel"
   },
   {
     "name": "Car Breakdown in Death Valley",
     "description": "Your car broke down in a hot desert with no cellular signal. Jennifer is your passenger. Practice checking supplies and planning.",
-    "imageUrl": "/Images/role-play.webp",
+    "imageUrl": "/Images/car-breakdown.webp",
     "perspective": "Survival"
   },
   {
     "name": "Blizzard Lock-in in Swiss Alps",
     "description": "Stuck in a mountain cabin during a major snowstorm with no electricity. Jennifer is the caretaker. Discuss rationing food and firewood.",
-    "imageUrl": "/Images/characters.webp",
+    "imageUrl": "/Images/blizzard-cabin.webp",
     "perspective": "Survival"
   }
 ]

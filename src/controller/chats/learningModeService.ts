@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { User } from "../../model/userModel";
+import { User, userModel } from "../../model/userModel";
 import {
   AIMsg,
   buildContents,
@@ -23,6 +23,45 @@ const learningModeService = async (req: Request, res: Response) => {
         status: false,
         message: "Valid mode parameter is required",
       });
+    }
+
+    // Fetch fresh user to check subscriptionPlan
+    const freshUser = await userModel.findById(userDetails._id);
+    if (!freshUser) {
+      return res.status(404).json({
+        status: false,
+        message: ERROR_MESSAGES.USER_NOT_FOUND,
+      });
+    }
+
+    // Free tier cannot access these premium learning modes
+    if (freshUser.subscriptionPlan === "free") {
+      return res.status(403).json({
+        status: false,
+        isLimitReached: true,
+        message: `${mode.charAt(0).toUpperCase() + mode.slice(1)} Mode requires a subscription. Please upgrade to continue.`,
+      });
+    }
+
+    // Gold tier is limited to 3 messages per day for each mode
+    if (freshUser.subscriptionPlan === "gold") {
+      const startOfDay = new Date();
+      startOfDay.setHours(0, 0, 0, 0);
+
+      const todayMsgCount = await conversationModel.countDocuments({
+        userId: userDetails._id,
+        conversationMode: mode,
+        role: "user",
+        timestamp: { $gte: startOfDay },
+      });
+
+      if (todayMsgCount >= 3) {
+        return res.status(403).json({
+          status: false,
+          isLimitReached: true,
+          message: `Daily Gold limit of 3 messages reached for ${mode.charAt(0).toUpperCase() + mode.slice(1)} Mode. Upgrade to Platinum for unlimited access.`,
+        });
+      }
     }
 
     // Fetch previous conversations

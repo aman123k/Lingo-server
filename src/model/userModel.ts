@@ -13,6 +13,7 @@ interface User {
   isSurveyComplete: boolean;
   translationLanguage: string;
   practiceFrequency: string;
+  subscriptionPlan: "free" | "gold" | "platinum";
   createdAt: Date;
 }
 
@@ -36,6 +37,11 @@ const userSchema = new Schema<userDocument>({
   ageGroup: { type: String, trim: true },
   translationLanguage: { type: String, trim: true },
   practiceFrequency: { type: String, trim: true },
+  subscriptionPlan: {
+    type: String,
+    enum: ["free", "gold", "platinum"],
+    default: "free",
+  },
   isSurveyComplete: { type: Boolean, required: true, trim: true },
   createdAt: {
     type: Date,

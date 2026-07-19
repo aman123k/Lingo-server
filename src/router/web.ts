@@ -4,6 +4,8 @@ import getUserInfo from "../controller/user/getUser";
 import updateSurvey from "../controller/survey/updateSurvey";
 import registerUser from "../controller/user/registerUser";
 import loginUser from "../controller/user/loginUser";
+import subscribeUser from "../controller/user/subscribeUser";
+import { createOrder, verifyPayment } from "../controller/payment/paymentController";
 import {
   authLimiter,
   chatLimiter,
@@ -42,6 +44,9 @@ router.post("/api/githubAuth", GitHubAuth);
 router.post("/api/survey", verifyTokenMiddleware, updateSurvey);
 router.post("/api/register", authLimiter, registerUser);
 router.post("/api/login", authLimiter, loginUser);
+router.post("/api/subscribe", verifyTokenMiddleware, subscribeUser);
+router.post("/api/payment/order", verifyTokenMiddleware, createOrder);
+router.post("/api/payment/verify", verifyTokenMiddleware, verifyPayment);
 router.post("/api/forgot-password", otpLimiter, sentOtp);
 router.post("/api/verify-otp", verifyOtp);
 router.post(

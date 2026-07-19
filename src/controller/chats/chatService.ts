@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { Request, Response } from "express";
-import { User } from "../../model/userModel";
+import { User, userModel } from "../../model/userModel";
 import {
   AIMsg,
   buildContents,
@@ -15,6 +15,36 @@ const chatService = async (req: Request, res: Response) => {
   try {
     const { messages, chatSessionId } = req.body;
     const userDetails = req.user as User & { _id: string };
+
+    // Fetch fresh user from DB to check current subscriptionPlan
+    const freshUser = await userModel.findById(userDetails._id);
+    if (!freshUser) {
+      return res.status(404).json({
+        status: false,
+        message: ERROR_MESSAGES.USER_NOT_FOUND,
+      });
+    }
+
+    // Check message limit for free tier
+    if (freshUser.subscriptionPlan === "free") {
+      const startOfDay = new Date();
+      startOfDay.setHours(0, 0, 0, 0);
+
+      const todayMsgCount = await conversationModel.countDocuments({
+        userId: userDetails._id,
+        conversationMode: "chat",
+        role: "user",
+        timestamp: { $gte: startOfDay },
+      });
+
+      if (todayMsgCount >= 10) {
+        return res.status(403).json({
+          status: false,
+          isLimitReached: true,
+          message: "Daily limit of 10 messages reached. Please subscribe to continue.",
+        });
+      }
+    }
 
     // Fetch Previous Conversations
     const oldConversations =

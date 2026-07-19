@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { User } from "../../model/userModel";
+import { User, userModel } from "../../model/userModel";
 import {
   AIMsg,
   buildContents,
@@ -16,6 +16,23 @@ const characterService = async (req: Request, res: Response) => {
     const { messages, chatSessionId } = req.body;
     const characterId = req.query.characterId as string;
     const userDetails = req.user as User & { _id: string };
+
+    // Fetch fresh user to check subscriptionPlan
+    const freshUser = await userModel.findById(userDetails._id);
+    if (!freshUser) {
+      return res.status(404).json({
+        status: false,
+        message: ERROR_MESSAGES.USER_NOT_FOUND,
+      });
+    }
+
+    if (freshUser.subscriptionPlan === "free") {
+      return res.status(403).json({
+        status: false,
+        isLimitReached: true,
+        message: "Character Dialogues require a subscription. Please upgrade to continue.",
+      });
+    }
 
     // Validate inputs
     if (!characterId) {
